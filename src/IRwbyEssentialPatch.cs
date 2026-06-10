@@ -1,0 +1,3 @@
+namespace RwbyAP;
+
+interface IRwbyEssentialPatch;
