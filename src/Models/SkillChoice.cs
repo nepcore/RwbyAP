@@ -19,9 +19,14 @@ public struct SkillChoice
                 // reconstructing random so order of items received doesn't
                 // impact randomization, making one seed always use the same
                 // choices, but allowing different choices for different seeds
-                var random = new System.Random(RWBYAP.Connection.Seed.GetHashCode());
+                var random = new System.Random(RWBYAP.Connection.Seed.GetHashCode() + this.GetHashCode());
                 return choices[random.Next(choices.Length)];
             }
         }
+    }
+
+    override public int GetHashCode()
+    {
+        return string.Join("", choices).GetHashCode();
     }
 }
