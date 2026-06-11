@@ -117,13 +117,10 @@ public class RWBYAP : BaseUnityPlugin
                     if (pd.GetPlayerCharacter() != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid && !pd.GetPlayerCharacter().HasAppliedCharacterUpgrade(cu))
                     {
                         Singleton_MonoBehaviour<GameManager>.Instance.AcquireCharacterUpgrade(pd, cu);
-                        return;
                     }
-                    else if (pd.GetPlayerCharacter() == null || pd.GetPlayerCharacter().PlayableCharacterDefinition.ID != cid)
-                    {
-                        Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetCharacterData(cid).PurchasedUpgrades.Add(cu.ID);
-                        return;
-                    }
+
+                    Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetCharacterData(cid).PurchasedUpgrades.Add(cu.ID);
+                    return;
                 }
             }
 
