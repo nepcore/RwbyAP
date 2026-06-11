@@ -61,7 +61,7 @@ public class TriggeredActionCompletePatch : IRwbyGameplayPatch
         {
             var id = LevelBaseIDs.GetValueSafe(level);
             if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(id))
-                RWBYAP.Connection.Locations.CompleteLocationChecks(id);
+                RWBYAP.Connection.CompleteLocationChecks(id);
             if (level == "Merlot_Lab_02") RWBYAP.Connection.SetGoalAchieved();
             //RWBYAP.SendChat($"Level <color=red>{Singleton_MonoBehaviour<ApplicationManager>.Instance?.GetCurrentLevelDefinition()?.PrettySceneName}</color> Completed");
             return;
@@ -75,7 +75,7 @@ public class TriggeredActionCompletePatch : IRwbyGameplayPatch
             if (gate != null)
             {
                 if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(gate.Value.ID))
-                    RWBYAP.Connection.Locations.CompleteLocationChecks(gate.Value.ID);
+                    RWBYAP.Connection.CompleteLocationChecks(gate.Value.ID);
                 //RWBYAP.SendChat($"Cleared <color=silver>Encounter {i}</color>");
                 return;
             }

@@ -136,7 +136,7 @@ public class BreakableAwardsPatch : IRwbyGameplayPatch
             {
                 if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(breakable.ID))
                 {
-                    RWBYAP.Connection.Locations.CompleteLocationChecks(breakable.ID);
+                    RWBYAP.Connection.CompleteLocationChecks(breakable.ID);
                 }
                 return;
             }

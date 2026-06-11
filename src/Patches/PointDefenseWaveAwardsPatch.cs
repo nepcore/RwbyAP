@@ -54,11 +54,11 @@ public class PointDefenseWaveAwardsPatch : IRwbyGameplayPatch
         //RWBYAP.SendChat($"<color=orange>Wave {wave}</color> Completed");
         var id = Waves.GetValueSafe(level)?.GetValueSafe($"Wave {wave}");
         if (id != null && RWBYAP.Connection.Locations.AllMissingLocations.Contains(id.Value))
-            RWBYAP.Connection.Locations.CompleteLocationChecks(id.Value);
+            RWBYAP.Connection.CompleteLocationChecks(id.Value);
         var fid = Waves.GetValueSafe(level)?.GetValueSafe($"Wave {wave} Flawless");
         if (___m_generator.Stats.m_stats.curHealth >= ___m_startWavePointHealth)
             if (fid != null && RWBYAP.Connection.Locations.AllMissingLocations.Contains(fid.Value))
-                RWBYAP.Connection.Locations.CompleteLocationChecks(fid.Value);
+                RWBYAP.Connection.CompleteLocationChecks(fid.Value);
         //RWBYAP.SendChat($"<color=yellow>Wave {wave} Flawless</color>");
     }
 }

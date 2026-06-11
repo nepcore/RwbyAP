@@ -118,7 +118,7 @@ public class MainMenuPatch : IRwbyEssentialPatch
     public static void Inject()
     {
         RWBYAP.Harmony.UnpatchSelf();
-        RWBYAP.Harmony.PatchAll(typeof(IRwbyGameplayPatch));
+        RWBYAP.Harmony.PatchByInterface(typeof(IRwbyGameplayPatch));
     }
 
     public static void OnArchipelago(string host, string port, string slot, string pass)

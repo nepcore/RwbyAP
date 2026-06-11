@@ -89,7 +89,7 @@ public class RWBYAP : BaseUnityPlugin
         if (manager != null) manager.hideFlags = HideFlags.HideAndDontSave;
         Harmony = new("rwbyap.gameplay");
         Harmony harmony = new("rwbyap.essential");
-        harmony.PatchAll(typeof(IRwbyEssentialPatch));
+        harmony.PatchByInterface(typeof(IRwbyEssentialPatch));
     }
 
     private void Update() {

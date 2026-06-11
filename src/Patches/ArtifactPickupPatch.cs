@@ -41,7 +41,7 @@ public class ArtifactPickupPatch : IRwbyGameplayPatch
             var id = LevelBaseIDs.GetValueSafe(level) + Artifacts.GetValueSafe($"{color} {piece}");
             //RWBYAP.SendChat($"Found <color=purple>{color} {piece} Artifact</color> // {level} // {id} // {id != null} // {RWBYAP.Connection.Locations.AllMissingLocations.Contains(id.Value)}");
             if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(id))
-                RWBYAP.Connection.Locations.CompleteLocationChecks(id);
+                RWBYAP.Connection.CompleteLocationChecks(id);
         }
     }
 }

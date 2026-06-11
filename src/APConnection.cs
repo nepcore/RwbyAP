@@ -214,6 +214,13 @@ public class APConnection
         prompt.YesButton.gameObject.SetActive(value: false);
     }
 
+    public void CompleteLocationChecks(params long[] ids)
+    {
+        new System.Threading.Thread(() => {
+            Locations.CompleteLocationChecks(ids);
+        }).Start();
+    }
+
     public void SetGoalAchieved()
     {
         session.SetGoalAchieved();
