@@ -103,6 +103,40 @@ public class RWBYAP : BaseUnityPlugin
         {
             var item = Connection.Items.DequeueItem();
 
+            if (item.ItemId >= 1 && item.ItemId <= 4)
+            {
+                var cid = new string[]{"Rubyb2cc", "Weis9ad1", "Blak8346", "Yangcde5"}[item.ItemId - 1];
+                var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();
+                var gm = Singleton_MonoBehaviour<GameManager>.Instance.Mode;
+                if (pd != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid)
+                {
+                    gm.AwardExperience(pd, 10);
+                }
+                else
+                {
+                    var cd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetCharacterData(cid);
+                    var pc = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.DefaultProgressionCurve;
+                    var before = pc.GetLevel(cd.Experience);
+                    cd.Experience += 10;
+                    var after = pc.GetLevel(cd.Experience);
+                    if (before != after)
+                    {
+                        if (after == 4) Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.AddStat(Stat.Database.Stat_Level5_Total, 1);
+
+                        if (after == pc.MaxLevel)
+                        {
+                            var def = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.PlayableCharacters.Find(cid);
+                            Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.AddStat(def.Stat_MaxLevel, 1);
+                            Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.AddStat(Stat.Database.Stat_MaxLevel_Total, 1);
+                        }
+
+                        var id = Patches.LevelUpDetectionPatch.CharacterIDBases.GetValueSafe(cid) + (after - 1);
+                        if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(id)) RWBYAP.Connection.CompleteLocationChecks(id);
+                    }
+                }
+                return;
+            }
+
             if (SkillMap.ContainsKey(item.ItemId))
             {
                 foreach (var skill in SkillMap.GetValueSafe(item.ItemId))

@@ -7,7 +7,7 @@ namespace RwbyAP.Patches;
 [HarmonyPatch(typeof(MicroprogressionController), "LevelUp")]
 public class LevelUpDetectionPatch : IRwbyGameplayPatch
 {
-    private static Dictionary<string, int> CharacterIDBases = new() {
+    public static Dictionary<string, int> CharacterIDBases = new() {
         {"Rubyb2cc", 100},
         {"Weis9ad1", 200},
         {"Blak8346", 300},
