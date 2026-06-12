@@ -65,6 +65,58 @@ public class APConnection
         }
     }
 
+    private class DummyDataStorage : IDataStorageHelper
+    {
+        private DataStorageElement dummy;
+        public DataStorageElement this[Scope s, string key]
+        {
+            get => null;
+            set => dummy = value;
+        }
+        public DataStorageElement this[string key]
+        {
+            get => null;
+            set => dummy = value;
+        }
+        public Hint[] GetHints(int? i1, int? i2)
+        {
+            return [];
+        }
+        public void GetHintsAsync(Action<Hint[]> f, int? i1, int? i2) {}
+        public void TrackHints(Action<Hint[]> f, bool b, int? i1, int? i2) {}
+        public Dictionary<string, object> GetSlotData(int? i1)
+        {
+            return new();
+        }
+        public void GetSlotDataAsync(Action<Dictionary<string, object>> f, int? i1) {}
+        public T GetSlotData<T>(int? i1) where T : class
+        {
+            return null;
+        }
+        public void GetSlotDataAsync<T>(Action<T> f, int? i1) where T : class {}
+        public Dictionary<string, string[]> GetItemNameGroups(string s)
+        {
+            return new();
+        }
+        public void GetItemNameGroupsAsync(Action<Dictionary<string, string[]>> f, string s) {}
+        public Dictionary<string, string[]> GetLocationNameGroups(string s)
+        {
+            return new();
+        }
+        public void GetLocationNameGroupsAsync(Action<Dictionary<string, string[]>> f, string s) {}
+        public ArchipelagoClientState GetClientStatus(int? i1, int? i2)
+        {
+            return new();
+        }
+        public void GetClientStatusAsync(Action<ArchipelagoClientState> f, int? i1, int? i2) {}
+        public void TrackClientStatus(Action<ArchipelagoClientState> f, bool b, int? i1, int? i2) {}
+        public bool GetRaceMode()
+        {
+            return true;
+        }
+        public void GetRaceModeAsync(Action<bool> f) {}
+    }
+
     private class LifecycleHook : MonoBehaviour
     {
         private APConnection self;
@@ -130,9 +182,12 @@ public class APConnection
 
     public bool Connected => session != null && session.Socket != null && session.Socket.Connected;
     public string Seed => session?.RoomState?.Seed;
+    public int? Slot => session?.ConnectionInfo?.Slot;
+    public int? Team => session?.ConnectionInfo?.Team;
 
     public ILocationCheckHelper Locations => Connected ? session.Locations : new DummyLocations();
     public IReceivedItemsHelper Items => Connected ? session.Items : new DummyItems();
+    public IDataStorageHelper DataStorage => Connected ? session.DataStorage : new DummyDataStorage();
 
     public APConnection(string host, string port, string slot, string pass)
     {
