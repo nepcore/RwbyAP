@@ -108,7 +108,7 @@ public class RWBYAP : BaseUnityPlugin
                 var cid = new string[]{"Rubyb2cc", "Weis9ad1", "Blak8346", "Yangcde5"}[item.ItemId - 1];
                 var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();
                 var gm = Singleton_MonoBehaviour<GameManager>.Instance.Mode;
-                if (pd != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid)
+                if (gm != null && pd != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid)
                 {
                     gm.AwardExperience(pd, 10);
                 }
@@ -148,7 +148,11 @@ public class RWBYAP : BaseUnityPlugin
                     else if (item.ItemId < 600) cid = "Yangcde5";
                     var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();
                     var cu = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.CharacterUpgradeDatabase.Find(skill.Selected);
-                    if (pd.GetPlayerCharacter() != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid && !pd.GetPlayerCharacter().HasAppliedCharacterUpgrade(cu))
+
+                    if (Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetCharacterData(cid).PurchasedUpgrades.Contains(skill.Selected)) continue;
+                    if (pd != null && pd.GetPlayerCharacter() != null && pd.GetPlayerCharacter().HasAppliedCharacterUpgrade(cu)) continue;
+
+                    if (pd.GetPlayerCharacter() != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid)
                     {
                         Singleton_MonoBehaviour<GameManager>.Instance.AcquireCharacterUpgrade(pd, cu);
                     }
