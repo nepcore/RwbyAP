@@ -30,13 +30,13 @@ def create_and_connect_regions(world: RWBYWorld) -> None:
     menu.connect(ch10, "Final Exam Entrance", Has("Chapter Unlocked: Final Exam"))
 
     ruby = Region("Ruby Level Up", world.player, world.multiworld)
-    menu.connect(ruby, "Ruby Level Up Entrance", Has("Ruby Unlocked"))
+    menu.connect(ruby, "Ruby Level Up Entrance", Has("Character Unlocked: Ruby"))
     weiss = Region("Weiss Level Up", world.player, world.multiworld)
-    menu.connect(weiss, "Weiss Level Up Entrance", Has("Weiss Unlocked"))
+    menu.connect(weiss, "Weiss Level Up Entrance", Has("Character Unlocked: Weiss"))
     blake = Region("Blake Level Up", world.player, world.multiworld)
-    menu.connect(blake, "Blake Level Up Entrance", Has("Blake Unlocked"))
+    menu.connect(blake, "Blake Level Up Entrance", Has("Character Unlocked: Blake"))
     yang = Region("Yang Level Up", world.player, world.multiworld)
-    menu.connect(yang, "Yang Level Up Entrance", Has("Yang Unlocked"))
+    menu.connect(yang, "Yang Level Up Entrance", Has("Character Unlocked: Yang"))
 
     world.multiworld.regions += [
         menu,
