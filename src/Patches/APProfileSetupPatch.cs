@@ -33,6 +33,7 @@ public class APProfileSetupPatch : IRwbyGameplayPatch
             Singleton_MonoBehaviour<ApplicationManager>.Instance.State.Update();
         }
         Singleton_MonoBehaviour<ConnectionManager>.Instance.PublishLocalPlayerNetworkProperties();
+        RWBYAP.ProfileLoaded = true;
         return false;
     }
 }

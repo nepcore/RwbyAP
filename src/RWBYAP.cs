@@ -19,6 +19,11 @@ public class RWBYAP : BaseUnityPlugin
     public static Harmony Harmony;
     public static APConnection Connection;
     private static System.Collections.Queue chatQueue = new();
+
+    public static bool ProfileLoaded = false;
+    public static Stat ItemsReceivedStat = new Stat();
+    public static int ItemsProcessed = 0;
+
     public static Dictionary<string, long> Levels = new() {
         {"Emerald_Forest_01", 101},
         {"Emerald_Forest_02", 102},
@@ -87,6 +92,8 @@ public class RWBYAP : BaseUnityPlugin
         Logger = base.Logger;
         var manager = GameObject.Find("BepInEx_Manager");
         if (manager != null) manager.hideFlags = HideFlags.HideAndDontSave;
+        ItemsReceivedStat.ID = "AP_ItemsReceived";
+        ItemsReceivedStat.name = "AP Items Received";
         Harmony = new("rwbyap.gameplay");
         Harmony harmony = new("rwbyap.essential");
         harmony.PatchByInterface(typeof(IRwbyEssentialPatch));
@@ -98,10 +105,17 @@ public class RWBYAP : BaseUnityPlugin
             SendChat(chatQueue.Dequeue().ToString());
         }
 
-        if (Connection == null) return;
+        if (Connection == null || !ProfileLoaded) return;
         while (Connection.Items.Any())
         {
             var item = Connection.Items.DequeueItem();
+
+            if (ItemsProcessed < Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetStat(ItemsReceivedStat))
+            {
+                Logger.LogInfo($"Skipping '{item.ItemDisplayName}' because it should have been processed in a prior session");
+                ItemsProcessed++;
+                continue;
+            }
 
             if (item.ItemId >= 1 && item.ItemId <= 4)
             {
@@ -134,7 +148,6 @@ public class RWBYAP : BaseUnityPlugin
                         if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(id)) RWBYAP.Connection.CompleteLocationChecks(id);
                     }
                 }
-                return;
             }
 
             if (SkillMap.ContainsKey(item.ItemId))
@@ -158,11 +171,13 @@ public class RWBYAP : BaseUnityPlugin
                     }
 
                     Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.GetCharacterData(cid).PurchasedUpgrades.Add(cu.ID);
-                    return;
+                    break;
                 }
             }
 
             Logger.LogInfo($"Received {item.ItemDisplayName} from {item.Player.Alias}'s {item.LocationDisplayName}");
+            Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.AddStat(ItemsReceivedStat, 1);
+            ItemsProcessed++;
         }
     }
 

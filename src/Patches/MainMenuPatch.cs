@@ -125,6 +125,8 @@ public class MainMenuPatch : IRwbyEssentialPatch
     {
         RWBYAP.Logger.LogInfo($"Connect: {slot}:{pass}@{host}:{port}");
         if (RWBYAP.Connection != null) RWBYAP.Connection.Disconnect();
+        RWBYAP.ProfileLoaded = false;
+        RWBYAP.ItemsProcessed = 0;
         RWBYAP.Connection = new(host, port, slot, pass);
         RWBYAP.Connection.Connect(() => {
             Inject();

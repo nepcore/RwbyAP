@@ -8,6 +8,7 @@ public class ReturnToLobbyAfterLevelPatch : IRwbyGameplayPatch
 {
     public static bool Prefix()
     {
+        Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.Update();
         Singleton_MonoBehaviour<ApplicationManager>.Instance.ReturnToLobby();
         return false;
     }
