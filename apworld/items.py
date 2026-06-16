@@ -102,8 +102,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Ruby - Survivor": ItemClassification.useful,
     "Ruby - Heavy Synergy": ItemClassification.useful,
     "Ruby - Medic": ItemClassification.useful,
-    "Ruby - Increased Aura": ItemClassification.useful,
-    "Ruby - Aura Regeneration": ItemClassification.useful,
+    "Ruby - Increased Aura": ItemClassification.progression,
+    "Ruby - Aura Regeneration": ItemClassification.progression,
     "Ruby - Ultimate Charge": ItemClassification.useful,
     # Weiss
     "Character Unlocked: Weiss": ItemClassification.progression,
@@ -115,8 +115,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Weiss - Survivor": ItemClassification.useful,
     "Weiss - Heavy Synergy": ItemClassification.useful,
     "Weiss - Medic": ItemClassification.useful,
-    "Weiss - Increased Aura": ItemClassification.useful,
-    "Weiss - Aura Regeneration": ItemClassification.useful,
+    "Weiss - Increased Aura": ItemClassification.progression,
+    "Weiss - Aura Regeneration": ItemClassification.progression,
     "Weiss - Ultimate Charge": ItemClassification.useful,
     # Blake
     "Character Unlocked: Blake": ItemClassification.progression,
@@ -128,8 +128,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Blake - Survivor": ItemClassification.useful,
     "Blake - Heavy Synergy": ItemClassification.useful,
     "Blake - Medic": ItemClassification.useful,
-    "Blake - Increased Aura": ItemClassification.useful,
-    "Blake - Aura Regeneration": ItemClassification.useful,
+    "Blake - Increased Aura": ItemClassification.progression,
+    "Blake - Aura Regeneration": ItemClassification.progression,
     "Blake - Ultimate Charge": ItemClassification.useful,
     # Yang
     "Character Unlocked: Yang": ItemClassification.progression,
@@ -141,8 +141,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Yang - Survivor": ItemClassification.useful,
     "Yang - Heavy Synergy": ItemClassification.useful,
     "Yang - Medic": ItemClassification.useful,
-    "Yang - Increased Aura": ItemClassification.useful,
-    "Yang - Aura Regeneration": ItemClassification.useful,
+    "Yang - Increased Aura": ItemClassification.progression,
+    "Yang - Aura Regeneration": ItemClassification.progression,
     "Yang - Ultimate Charge": ItemClassification.useful,
 }
 

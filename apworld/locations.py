@@ -106,6 +106,7 @@ ch2 = {
     "Technical Difficulties - Encounter 1": 20001,
     "Technical Difficulties - Encounter 2": 20002,
     "Technical Difficulties - Encounter 3A": 20003,
+    "Technical Difficulties - Encounter 3B": 20004,
     "Technical Difficulties - Wave 1": 20010,
     "Technical Difficulties - Wave 2": 20011,
     "Technical Difficulties - Wave 3": 20012,
@@ -170,6 +171,10 @@ ch2 = {
 
 ch3 = {
     "The Collapse - Completed": 30000,
+    "The Collapse - Encounter 1": 30001,
+    "The Collapse - Encounter 2": 30002,
+    "The Collapse - Encounter 3A": 30003,
+    "The Collapse - Encounter 3B": 30004,
     "The Collapse - Golden Knight": 30090,
     "The Collapse - Golden Rook": 30091,
     "The Collapse - Black Knight": 30092,
@@ -225,6 +230,8 @@ ch3 = {
 
 ch4 = {
     "Below the Surface - Completed": 40000,
+    "Below the Surface - Encounter 1": 40001,
+    "Below the Surface - Encounter 2": 40002,
     "Below the Surface - Golden Knight": 40090,
     "Below the Surface - Golden Rook": 40091,
     "Below the Surface - Black Knight": 40092,
@@ -294,6 +301,10 @@ ch4 = {
 
 ch5 = {
     "Right on Track - Completed": 50000,
+    "Right on Track - Encounter 1A": 50001,
+    "Right on Track - Encounter 1B": 50002,
+    "Right on Track - Encounter 2": 50003,
+    "Right on Track - Encounter 3": 50004,
     "Right on Track - Golden Knight": 50090,
     "Right on Track - Golden Rook": 50091,
     "Right on Track - Black Knight": 50092,
@@ -312,6 +323,9 @@ ch5 = {
 
 ch6 = {
     "End of the Line - Completed": 60000,
+    "End of the Line - Encounter 1": 60001,
+    "End of the Line - Encounter 2": 60002,
+    "End of the Line - Encounter 3": 60003,
     "End of the Line - Golden Knight": 60090,
     "End of the Line - Golden Rook": 60091,
     "End of the Line - Black Knight": 60092,
@@ -367,6 +381,10 @@ ch6 = {
 
 ch7 = {
     "The Island of Dr. Merlot - Completed": 70000,
+    "The Island of Dr. Merlot - Encounter 1": 70001,
+    "The Island of Dr. Merlot - Encounter 2": 70002,
+    "The Island of Dr. Merlot - Encounter 3": 70003,
+    "The Island of Dr. Merlot - Encounter 4": 70004,
     "The Island of Dr. Merlot - Golden Knight": 70090,
     "The Island of Dr. Merlot - Golden Rook": 70091,
     "The Island of Dr. Merlot - Black Knight": 70092,
@@ -402,6 +420,10 @@ ch7 = {
 
 ch8 = {
     "A Grimm Discovery - Completed": 80000,
+    "A Grimm Discovery - Encounter 1": 80001,
+    "A Grimm Discovery - Encounter 2": 80002,
+    "A Grimm Discovery - Encounter 3A": 80003,
+    "A Grimm Discovery - Encounter 3B": 80004,
     "A Grimm Discovery - Golden Knight": 80090,
     "A Grimm Discovery - Golden Rook": 80091,
     "A Grimm Discovery - Black Knight": 80092,
@@ -414,6 +436,10 @@ ch8 = {
 
 ch9 = {
     "The Grand Tour - Completed": 90000,
+    "The Grand Tour - Encounter 1": 90001,
+    "The Grand Tour - Encounter 2": 90002,
+    "The Grand Tour - Encounter 3": 90003,
+    "The Grand Tour - Encounter 4": 90004,
     "The Grand Tour - Golden Knight": 90090,
     "The Grand Tour - Golden Rook": 90091,
     "The Grand Tour - Black Knight": 90092,
@@ -478,8 +504,7 @@ def create_all_locations(world: RWBYWorld) -> None:
         "The Grand Tour": ch9,
         "Final Exam": ch10,
     }.items():
-        names = [name for name, _ in checks.items()]
-        world.get_region(level).add_locations(get_location_names_with_ids(names), RWBYLocation)
+        world.get_region(level).add_locations(checks, RWBYLocation)
 
     for character in ["Ruby", "Weiss", "Blake", "Yang"]:
         names = [f"{character} - Level {i}" for i in range(2, 11)]
