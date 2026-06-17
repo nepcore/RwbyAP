@@ -2,11 +2,12 @@ using HarmonyLib;
 
 namespace RwbyAP.Patches;
 
-[HarmonyPatch(typeof(MicroprogressionController), "LevelUp")]
+[HarmonyPatch(typeof(MicroprogressionController), "Update")]
 public class SuppressLevelUpPrompt : IRwbyGameplayPatch
 {
-    public static bool Prefix()
+    public static bool Prefix(ref bool ___m_newSkills)
     {
-        return false;
+        ___m_newSkills = false;
+        return true;
     }
 }
