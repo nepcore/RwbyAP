@@ -246,7 +246,7 @@ def create_all_items(world: RWBYWorld) -> None:
     for character in characters:
         skillpool = skills[character]
         world.random.shuffle(skillpool)
-        itempool += skillpool[:16]
+        itempool += skillpool[:13]
 
     precollected += [f"Character Unlocked: {characters.pop()}"]
     itempool += [f"Character Unlocked: {name}" for name in characters]
