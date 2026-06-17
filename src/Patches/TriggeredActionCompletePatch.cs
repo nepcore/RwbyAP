@@ -60,6 +60,14 @@ public class TriggeredActionCompletePatch : IRwbyGameplayPatch
             new (90004, "GateObject (2)", "4"),
         }},
         {"Merlot_Lab_02", new() {
+            new (100002, "Encounter 2", "2"),
+            new (100003, "Encounter 3", "3"),
+            new (100004, "Encounter 4", "4"),
+            // level 10 uses the same name for all of the door objects and the encounter 1 door doesn't
+            // want to take the marker component, so it's checked by that shared name and kept at the
+            // end of the list so the marker based ones are checked first, the early return on matches
+            // sorts out crossfiring
+            new (100001, "Merlot_Door_01", "1"),
         }},
     };
 
@@ -95,8 +103,8 @@ public class TriggeredActionCompletePatch : IRwbyGameplayPatch
         if (__instance is AnimationAction || __instance is GateAction || __instance is SwitchAction)
         {
             var gates = LevelGates.GetValueSafe(level);
-            var gate = gates?.Find(g => g.Name == __instance?.name);
-            if (gate != null)
+            var gate = gates?.Find(g => g.Name == __instance?.name || g.Name == __instance?.GetComponent<Marker>()?.Name);
+            if (gate != null && gate.Value.ID > 0)
             {
                 if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(gate.Value.ID))
                     RWBYAP.Connection.CompleteLocationChecks(gate.Value.ID);

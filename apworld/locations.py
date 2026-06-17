@@ -453,6 +453,10 @@ ch9 = {
 
 ch10 = {
     "Final Exam - Completed": 100000,
+    "Final Exam - Encounter 1": 100001,
+    "Final Exam - Encounter 2": 100002,
+    "Final Exam - Encounter 3": 100003,
+    "Final Exam - Encounter 4": 100004,
     "Final Exam - Golden Knight": 100090,
     "Final Exam - Golden Rook": 100091,
     "Final Exam - Black Knight": 100092,
