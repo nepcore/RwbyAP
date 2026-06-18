@@ -101,6 +101,7 @@ public class MainMenuPatch : IRwbyEssentialPatch
         terms.Add("AP_ConnectTitle", "CONNECT TO ARCHIPELAGO");
         terms.Add("AP_Nothing", " ");
         terms.Add("AP_ConnectConfirm", "CONNECT");
+        terms.Add("AP_ReturnToLobby", "RETURN TO LOBBY");
 
         var source = I2.Loc.LocalizationManager.Sources[0];
 
