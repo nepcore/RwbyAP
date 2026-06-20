@@ -7,8 +7,10 @@ namespace RwbyAP.Patches;
 [HarmonyPatch(typeof(PreGameLobbyController), "Initialize")]
 public class PreGameLobbyPatch : IRwbyGameplayPatch
 {
-    public static void Postfix(PreGameLobbyController __instance, GenericSelectionItem ___m_privacyButton)
+    public static void Postfix(PreGameLobbyController __instance, GenericSelectionItem ___m_privacyButton, GenericSelectionPanel ___m_lobbyPanel)
     {
+        RWBYAP.MakeArtifactLabel(___m_lobbyPanel.gameObject);
+
         ___m_privacyButton.gameObject.SetActive(false);
         var campaign = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.CampaignDefinitionDatabase.GetFirstCampaignInStyle(CampaignDefinition.CampaignStyle.Campaign);
         Singleton_MonoBehaviour<GameManager>.Instance.GameData.CampaignID = campaign.ID;

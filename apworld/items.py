@@ -10,6 +10,8 @@ ITEM_NAME_TO_ID = {
     "Weiss 10 XP": 2,
     "Blake 10 XP": 3,
     "Yang 10 XP": 4,
+    # Progression
+    "Artifact": 99,
     # Stages
     "Chapter Unlocked: Boots on the Ground": 101,
     "Chapter Unlocked: Technical Difficulties": 102,
@@ -81,19 +83,21 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Weiss 10 XP": ItemClassification.filler,
     "Blake 10 XP": ItemClassification.filler,
     "Yang 10 XP": ItemClassification.filler,
+    # Progression
+    "Artifact": ItemClassification.progression,
     # Stages
-    "Chapter Unlocked: Boots on the Ground": ItemClassification.progression,
-    "Chapter Unlocked: Technical Difficulties": ItemClassification.progression,
-    "Chapter Unlocked: The Collapse": ItemClassification.progression,
-    "Chapter Unlocked: Below the Surface": ItemClassification.progression,
-    "Chapter Unlocked: Right on Track": ItemClassification.progression,
-    "Chapter Unlocked: End of the Line": ItemClassification.progression,
-    "Chapter Unlocked: The Island of Dr. Merlot": ItemClassification.progression,
-    "Chapter Unlocked: A Grimm Discovery": ItemClassification.progression,
-    "Chapter Unlocked: The Grand Tour": ItemClassification.progression,
-    "Chapter Unlocked: Final Exam": ItemClassification.progression,
+    "Chapter Unlocked: Boots on the Ground": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: Technical Difficulties": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: The Collapse": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: Below the Surface": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: Right on Track": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: End of the Line": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: The Island of Dr. Merlot": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: A Grimm Discovery": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: The Grand Tour": ItemClassification.progression | ItemClassification.useful,
+    "Chapter Unlocked: Final Exam": ItemClassification.progression | ItemClassification.useful,
     # Ruby
-    "Character Unlocked: Ruby": ItemClassification.progression,
+    "Character Unlocked: Ruby": ItemClassification.progression | ItemClassification.useful,
     "Ruby - Team Player": ItemClassification.useful,
     "Ruby - Hyperballistic": ItemClassification.useful,
     "Ruby - Progressive Ranged": ItemClassification.useful,
@@ -106,7 +110,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Ruby - Aura Regeneration": ItemClassification.progression,
     "Ruby - Ultimate Charge": ItemClassification.useful,
     # Weiss
-    "Character Unlocked: Weiss": ItemClassification.progression,
+    "Character Unlocked: Weiss": ItemClassification.progression | ItemClassification.useful,
     "Weiss - Ice Queen": ItemClassification.useful,
     "Weiss - Perfect Form": ItemClassification.useful,
     "Weiss - Progressive Ranged": ItemClassification.useful,
@@ -119,7 +123,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Weiss - Aura Regeneration": ItemClassification.progression,
     "Weiss - Ultimate Charge": ItemClassification.useful,
     # Blake
-    "Character Unlocked: Blake": ItemClassification.progression,
+    "Character Unlocked: Blake": ItemClassification.progression | ItemClassification.useful,
     "Blake - Frenzy": ItemClassification.useful,
     "Blake - Fortunate Faunus": ItemClassification.useful,
     "Blake - Progressive Ranged": ItemClassification.useful,
@@ -132,7 +136,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Blake - Aura Regeneration": ItemClassification.progression,
     "Blake - Ultimate Charge": ItemClassification.useful,
     # Yang
-    "Character Unlocked: Yang": ItemClassification.progression,
+    "Character Unlocked: Yang": ItemClassification.progression | ItemClassification.useful,
     "Yang - Brawler": ItemClassification.useful,
     "Yang - Second Wind": ItemClassification.useful,
     "Yang - Progressive Ranged": ItemClassification.useful,
@@ -250,6 +254,8 @@ def create_all_items(world: RWBYWorld) -> None:
 
     precollected += [f"Character Unlocked: {characters.pop()}"]
     itempool += [f"Character Unlocked: {name}" for name in characters]
+
+    itempool += (["Artifact"] * world.options.artifacts_in_pool)
 
     itempool = [name for name in itempool if not name in precollected]
 

@@ -8,6 +8,8 @@ public class PreLevelReturnToLobbyPatch : IRwbyGameplayPatch
 {
     public static void Postfix(GenericSelectionPanel ___m_levelIntroPanel)
     {
+        RWBYAP.MakeArtifactLabel(___m_levelIntroPanel.gameObject);
+
         if (!PhotonNetwork.isMasterClient) return;
         ___m_levelIntroPanel.SelectionItems[3].Localization.Term = "AP_ReturnToLobby";
         ___m_levelIntroPanel.SelectionItems[3].Button.onClick = new UnityEngine.UI.Button.ButtonClickedEvent();

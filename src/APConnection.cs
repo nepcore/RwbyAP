@@ -230,11 +230,44 @@ public class APConnection
                     UnityEngine.Object.Destroy(lifecycle);
                     return;
                 case LoginSuccessful login:
+                    var slotDataError = false;
+                    var artifactsInPool = 50L;
+                    var artifactsRequiredPercentage = 80L;
+
+                    switch (login.SlotData.GetValueSafe("artifacts_in_pool"))
+                    {
+                        case long inPool:
+                            artifactsInPool = inPool;
+                            break;
+                        default:
+                            slotDataError = true;
+                            break;
+                    }
+
+                    switch (login.SlotData.GetValueSafe("artifacts_required_percentage"))
+                    {
+                        case long required:
+                            artifactsRequiredPercentage = required;
+                            break;
+                        default:
+                            slotDataError = true;
+                            break;
+                    }
+
+                    if (slotDataError)
+                    {
+                        CreateErrorWidget("SLOT DATA ERROR", "Couldn't fetch required artifact count from slot data, assuming default (40)", "CLOSE");
+                        RWBYAP.ArtifactsRequired = 40;
+                    }
+                    else
+                    {
+                        RWBYAP.ArtifactsRequired = (long) Math.Floor(artifactsInPool * (artifactsRequiredPercentage / 100.0));
+                    }
+
                     RWBYAP.Logger.LogInfo("Setting up handlers");
                     session.Socket.ErrorReceived += delegate {
                         lifecycle.GetComponent<LifecycleHook>().Reconnect();
                     };
-                    //InjectPatches();
                     RWBYAP.Logger.LogInfo("Connection successful");
                     onConnected();
                     return;

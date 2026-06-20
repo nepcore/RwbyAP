@@ -25,6 +25,12 @@ public class AdjustGameObjectsPatch : IRwbyGameplayPatch
                     var marker = obj.gameObject.AddComponent<Marker>();
                     marker.Name = "Encounter 3";
                 }
+
+                if (obj.gameObject.name == "Merlot_Door_01" && RWBYAP.LocationMatches(obj.transform.position, new Vector3(-329.97f, -28.53f, 60.44f)))
+                {
+                    var comp = obj.gameObject.AddComponent<GameObjectStateOverride>();
+                    comp.OnUpdate = go => go.transform.position = new Vector3(-329.97f, -24.0752f, 114.8163f);
+                }
             }
 
             foreach (var obj in Object.FindObjectsOfType<SwitchAction>())
