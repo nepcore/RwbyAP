@@ -555,5 +555,5 @@ def create_all_locations(world: RWBYWorld) -> None:
         characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
 
     for character in characters:
-        names = [f"{character} - Level {i}" for i in range(2, 11)]
+        names = [f"{character} - Level {i}" for i in range(2, world.options.character_level_checks + 1)]
         world.get_region(f"{character} Level Up").add_locations(get_location_names_with_ids(names), RWBYLocation)

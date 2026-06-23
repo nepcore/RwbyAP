@@ -21,8 +21,8 @@ def set_all_rules(world: RWBYWorld) -> None:
     ]
 
     for char in chars:
-        for i in range(2, 11):
-            world.set_rule(world.get_location(f"{char} - Level {i}"), HasFromListUnique(*levels, count = i-1))
+        for i in range(2, world.options.character_level_checks + 1):
+            world.set_rule(world.get_location(f"{char} - Level {i}"), HasFromListUnique(*levels, count = i - 1))
 
     skills = Or(
         *[HasAll(f"Character Unlocked: {char}", f"{char} - Aura Regeneration", f"{char} - Increased Aura") for char in chars]
