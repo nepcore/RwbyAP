@@ -10,6 +10,10 @@ ITEM_NAME_TO_ID = {
     "Weiss 10 XP": 2,
     "Blake 10 XP": 3,
     "Yang 10 XP": 4,
+    "Jaune 10 XP": 5,
+    "Nora 10 XP": 6,
+    "Pyrrha 10 XP": 7,
+    "Ren 10 XP": 8,
     # Progression
     "Artifact": 99,
     # Stages
@@ -75,6 +79,58 @@ ITEM_NAME_TO_ID = {
     "Yang - Increased Aura": 509,
     "Yang - Aura Regeneration": 510,
     "Yang - Ultimate Charge": 511,
+    # Jaune
+    "Character Unlocked: Jaune": 600,
+    "Jaune - Best Teammate Ever": 601,
+    "Jaune - Team Synergy": 602,
+    "Jaune - Progressive Heavy": 603,
+    "Jaune - Progressive Team Attack": 604,
+    "Jaune - Progressive Ultimate": 605,
+    "Jaune - Survivor": 606,
+    "Jaune - Heavy Synergy": 607,
+    "Jaune - Medic": 608,
+    "Jaune - Increased Aura": 609,
+    "Jaune - Aura Regeneration": 610,
+    "Jaune - Ultimate Charge": 611,
+    # Nora
+    "Character Unlocked: Nora": 700,
+    "Nora - Power Surge": 701,
+    "Nora - Lightning Chain": 702,
+    "Nora - Progressive Ranged": 703,
+    "Nora - Progressive Team Attack": 704,
+    "Nora - Progressive Ultimate": 705,
+    "Nora - Survivor": 706,
+    "Nora - Heavy Synergy": 707,
+    "Nora - Medic": 708,
+    "Nora - Increased Aura": 709,
+    "Nora - Aura Regeneration": 710,
+    "Nora - Ultimate Charge": 711,
+    # Pyrrha
+    "Character Unlocked: Pyrrha": 800,
+    "Pyrrha - Ricochet": 801,
+    "Pyrrha - Long Distance Toss": 802,
+    "Pyrrha - Progressive Combo": 803,
+    "Pyrrha - Progressive Team Attack": 804,
+    "Pyrrha - Progressive Ultimate": 805,
+    "Pyrrha - Survivor": 806,
+    "Pyrrha - Heavy Synergy": 807,
+    "Pyrrha - Medic": 808,
+    "Pyrrha - Increased Aura": 809,
+    "Pyrrha - Aura Regeneration": 810,
+    "Pyrrha - Ultimate Charge": 811,
+    # Ren
+    "Character Unlocked: Ren": 900,
+    "Ren - Extra Ammo": 901,
+    "Ren - Heavy Hands": 902,
+    "Ren - Progressive Heavy": 903,
+    "Ren - Progressive Team Attack": 904,
+    "Ren - Progressive Ultimate": 905,
+    "Ren - Survivor": 906,
+    "Ren - Heavy Synergy": 907,
+    "Ren - Medic": 908,
+    "Ren - Increased Aura": 909,
+    "Ren - Aura Regeneration": 910,
+    "Ren - Ultimate Charge": 911,
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS = {
@@ -83,6 +139,10 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Weiss 10 XP": ItemClassification.filler,
     "Blake 10 XP": ItemClassification.filler,
     "Yang 10 XP": ItemClassification.filler,
+    "Jaune 10 XP": ItemClassification.filler,
+    "Nora 10 XP": ItemClassification.filler,
+    "Pyrrha 10 XP": ItemClassification.filler,
+    "Ren 10 XP": ItemClassification.filler,
     # Progression
     "Artifact": ItemClassification.progression,
     # Stages
@@ -148,6 +208,58 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Yang - Increased Aura": ItemClassification.progression,
     "Yang - Aura Regeneration": ItemClassification.progression,
     "Yang - Ultimate Charge": ItemClassification.useful,
+    # Jaune
+    "Character Unlocked: Jaune": ItemClassification.progression | ItemClassification.useful,
+    "Jaune - Best Teammate Ever": ItemClassification.useful,
+    "Jaune - Team Synergy": ItemClassification.useful,
+    "Jaune - Progressive Heavy": ItemClassification.useful,
+    "Jaune - Progressive Team Attack": ItemClassification.useful,
+    "Jaune - Progressive Ultimate": ItemClassification.useful,
+    "Jaune - Survivor": ItemClassification.useful,
+    "Jaune - Heavy Synergy": ItemClassification.useful,
+    "Jaune - Medic": ItemClassification.useful,
+    "Jaune - Increased Aura": ItemClassification.progression,
+    "Jaune - Aura Regeneration": ItemClassification.progression,
+    "Jaune - Ultimate Charge": ItemClassification.useful,
+    # Nora
+    "Character Unlocked: Nora": ItemClassification.progression | ItemClassification.useful,
+    "Nora - Power Surge": ItemClassification.useful,
+    "Nora - Lightning Chain": ItemClassification.useful,
+    "Nora - Progressive Ranged": ItemClassification.useful,
+    "Nora - Progressive Team Attack": ItemClassification.useful,
+    "Nora - Progressive Ultimate": ItemClassification.useful,
+    "Nora - Survivor": ItemClassification.useful,
+    "Nora - Heavy Synergy": ItemClassification.useful,
+    "Nora - Medic": ItemClassification.useful,
+    "Nora - Increased Aura": ItemClassification.progression,
+    "Nora - Aura Regeneration": ItemClassification.progression,
+    "Nora - Ultimate Charge": ItemClassification.useful,
+    # Pyrrha
+    "Character Unlocked: Pyrrha": ItemClassification.progression | ItemClassification.useful,
+    "Pyrrha - Ricochet": ItemClassification.useful,
+    "Pyrrha - Long Distance Toss": ItemClassification.useful,
+    "Pyrrha - Progressive Combo": ItemClassification.useful,
+    "Pyrrha - Progressive Team Attack": ItemClassification.useful,
+    "Pyrrha - Progressive Ultimate": ItemClassification.useful,
+    "Pyrrha - Survivor": ItemClassification.useful,
+    "Pyrrha - Heavy Synergy": ItemClassification.useful,
+    "Pyrrha - Medic": ItemClassification.useful,
+    "Pyrrha - Increased Aura": ItemClassification.progression,
+    "Pyrrha - Aura Regeneration": ItemClassification.progression,
+    "Pyrrha - Ultimate Charge": ItemClassification.useful,
+    # Ren
+    "Character Unlocked: Ren": ItemClassification.progression | ItemClassification.useful,
+    "Ren - Extra Ammo": ItemClassification.useful,
+    "Ren - Heavy Hands": ItemClassification.useful,
+    "Ren - Progressive Heavy": ItemClassification.useful,
+    "Ren - Progressive Team Attack": ItemClassification.useful,
+    "Ren - Progressive Ultimate": ItemClassification.useful,
+    "Ren - Survivor": ItemClassification.useful,
+    "Ren - Heavy Synergy": ItemClassification.useful,
+    "Ren - Medic": ItemClassification.useful,
+    "Ren - Increased Aura": ItemClassification.progression,
+    "Ren - Aura Regeneration": ItemClassification.progression,
+    "Ren - Ultimate Charge": ItemClassification.useful,
 }
 
 skills = {
@@ -218,13 +330,82 @@ skills = {
         "Yang - Ultimate Charge",
         "Yang - Ultimate Charge",
     ],
+    "Jaune": [
+        "Jaune - Best Teammate Ever",
+        "Jaune - Team Synergy",
+        "Jaune - Progressive Heavy",
+        "Jaune - Progressive Heavy",
+        "Jaune - Progressive Team Attack",
+        "Jaune - Progressive Team Attack",
+        "Jaune - Progressive Ultimate",
+        "Jaune - Survivor",
+        "Jaune - Heavy Synergy",
+        "Jaune - Medic",
+        "Jaune - Increased Aura",
+        "Jaune - Aura Regeneration",
+        "Jaune - Ultimate Charge",
+        "Jaune - Ultimate Charge",
+    ],
+    "Nora": [
+        "Nora - Power Surge",
+        "Nora - Lightning Chain",
+        "Nora - Progressive Ranged",
+        "Nora - Progressive Ranged",
+        "Nora - Progressive Team Attack",
+        "Nora - Progressive Team Attack",
+        "Nora - Progressive Ultimate",
+        "Nora - Progressive Ultimate",
+        "Nora - Survivor",
+        "Nora - Heavy Synergy",
+        "Nora - Medic",
+        "Nora - Increased Aura",
+        "Nora - Aura Regeneration",
+        "Nora - Ultimate Charge",
+        "Nora - Ultimate Charge",
+    ],
+    "Pyrrha": [
+        "Pyrrha - Ricochet",
+        "Pyrrha - Long Distance Toss",
+        "Pyrrha - Progressive Combo",
+        "Pyrrha - Progressive Combo",
+        "Pyrrha - Progressive Team Attack",
+        "Pyrrha - Progressive Team Attack",
+        "Pyrrha - Progressive Ultimate",
+        "Pyrrha - Progressive Ultimate",
+        "Pyrrha - Survivor",
+        "Pyrrha - Heavy Synergy",
+        "Pyrrha - Medic",
+        "Pyrrha - Increased Aura",
+        "Pyrrha - Aura Regeneration",
+        "Pyrrha - Ultimate Charge",
+        "Pyrrha - Ultimate Charge",
+    ],
+    "Ren": [
+        "Ren - Extra Ammo",
+        "Ren - Heavy Hands",
+        "Ren - Progressive Heavy",
+        "Ren - Progressive Heavy",
+        "Ren - Progressive Team Attack",
+        "Ren - Progressive Team Attack",
+        "Ren - Progressive Ultimate",
+        "Ren - Progressive Ultimate",
+        "Ren - Survivor",
+        "Ren - Heavy Synergy",
+        "Ren - Medic",
+        "Ren - Increased Aura",
+        "Ren - Aura Regeneration",
+        "Ren - Ultimate Charge",
+        "Ren - Ultimate Charge",
+    ],
 }
 
 class RWBYItem(Item):
     game = "RWBY Grimm Eclipse"
 
 def get_random_filler_item_name(world: RWBYWorld) -> str:
-    fillers = [name for name, classification in DEFAULT_ITEM_CLASSIFICATIONS.items() if classification == ItemClassification.filler]
+    fillers = ["Ruby 10 XP", "Weiss 10 XP", "Blake 10 XP", "Yang 10 XP"]
+    if world.options.jnpr_enabled:
+        fillers += ["Jaune 10 XP", "Nora 10 XP", "Pyrrha 10 XP", "Ren 10 XP"]
     n = world.random.randint(0, len(fillers) - 1)
     return fillers[n]
 
@@ -239,12 +420,10 @@ def create_all_items(world: RWBYWorld) -> None:
     precollected += levels[:1]
     itempool += levels[1:]
 
-    characters = [
-        "Ruby",
-        "Weiss",
-        "Blake",
-        "Yang",
-    ]
+    characters = ["Ruby", "Weiss", "Blake", "Yang"]
+    if world.options.jnpr_enabled:
+        characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
+
     world.random.shuffle(characters)
 
     for character in characters:

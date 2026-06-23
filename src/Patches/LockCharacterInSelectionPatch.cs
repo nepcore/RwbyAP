@@ -13,10 +13,10 @@ public class LockCharacterInSelectionPatch : IRwbyGameplayPatch
         {"Weis9ad1", 300},
         {"Blak8346", 400},
         {"Yangcde5", 500},
-        {"Jaun5986", -1},
-        {"Noracf67", -1},
-        {"Pyrrfad9", -1},
-        {"Ren 7bb0", -1},
+        {"Jaun5986", 600},
+        {"Noracf67", 700},
+        {"Pyrrfad9", 800},
+        {"Ren 7bb0", 900},
     };
 
     public static void Postfix(CharacterSelectionController __instance, CharacterSelectionWidget ___m_characterSelectionWidget, int ___m_teamSelectionIndex, int ___m_costumeSelectionIndex, ref CharacterSelectionEntry ___m_currentSelectedEntry)

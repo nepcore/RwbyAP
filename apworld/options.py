@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Accessibility, OptionGroup, PerGameCommonOptions, ProgressionBalancing, Range
+from Options import Accessibility, OptionGroup, PerGameCommonOptions, ProgressionBalancing, Range, Toggle
 
 class ArtifactsInPool(Range):
     """How many artifacts should be in the item pool"""
@@ -19,15 +19,24 @@ class ArtifactsRequiredPercentage(Range):
     range_end = 100
     default = 80
 
+class JnprEnabled(Toggle):
+    """If characters from the team JNPR DLC should be added to the item pool"""
+
+    display_name = "JNPR DLC enabled"
+
 @dataclass
 class RWBYOptions(PerGameCommonOptions):
     artifacts_in_pool: ArtifactsInPool
     artifacts_required_percentage: ArtifactsRequiredPercentage
+    jnpr_enabled: JnprEnabled
 
 option_groups = [
     OptionGroup("Artifacts", [
         ArtifactsInPool,
         ArtifactsRequiredPercentage,
+    ]),
+    OptionGroup("Characters", [
+        JnprEnabled,
     ]),
     OptionGroup("Advanced", [
         ProgressionBalancing,

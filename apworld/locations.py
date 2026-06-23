@@ -45,6 +45,46 @@ LOCATION_NAME_TO_ID = {
     "Yang - Level 8": 406,
     "Yang - Level 9": 407,
     "Yang - Level 10": 408,
+
+    "Jaune - Level 2": 500,
+    "Jaune - Level 3": 501,
+    "Jaune - Level 4": 502,
+    "Jaune - Level 5": 503,
+    "Jaune - Level 6": 504,
+    "Jaune - Level 7": 505,
+    "Jaune - Level 8": 506,
+    "Jaune - Level 9": 507,
+    "Jaune - Level 10": 508,
+
+    "Nora - Level 2": 600,
+    "Nora - Level 3": 601,
+    "Nora - Level 4": 602,
+    "Nora - Level 5": 603,
+    "Nora - Level 6": 604,
+    "Nora - Level 7": 605,
+    "Nora - Level 8": 606,
+    "Nora - Level 9": 607,
+    "Nora - Level 10": 608,
+
+    "Pyrrha - Level 2": 700,
+    "Pyrrha - Level 3": 701,
+    "Pyrrha - Level 4": 702,
+    "Pyrrha - Level 5": 703,
+    "Pyrrha - Level 6": 704,
+    "Pyrrha - Level 7": 705,
+    "Pyrrha - Level 8": 706,
+    "Pyrrha - Level 9": 707,
+    "Pyrrha - Level 10": 708,
+
+    "Ren - Level 2": 800,
+    "Ren - Level 3": 801,
+    "Ren - Level 4": 802,
+    "Ren - Level 5": 803,
+    "Ren - Level 6": 804,
+    "Ren - Level 7": 805,
+    "Ren - Level 8": 806,
+    "Ren - Level 9": 807,
+    "Ren - Level 10": 808,
 }
 
 ch1 = {
@@ -510,6 +550,10 @@ def create_all_locations(world: RWBYWorld) -> None:
     }.items():
         world.get_region(level).add_locations(checks, RWBYLocation)
 
-    for character in ["Ruby", "Weiss", "Blake", "Yang"]:
+    characters = ["Ruby", "Weiss", "Blake", "Yang"]
+    if world.options.jnpr_enabled:
+        characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
+
+    for character in characters:
         names = [f"{character} - Level {i}" for i in range(2, 11)]
         world.get_region(f"{character} Level Up").add_locations(get_location_names_with_ids(names), RWBYLocation)

@@ -88,6 +88,54 @@ public class RWBYAP : BaseUnityPlugin
         {509, new (){new("Gene3084")}},
         {510, new (){new("Genec877")}},
         {511, new (){new("Gene51be"), new("Geneea9f")}},
+
+        {601, new (){new("Jaun1d80")}},
+        {602, new (){new("Jaun2ddc")}},
+        {603, new (){new("Jaun834b"), new("Jaun317d")}},
+        {604, new (){new("Jaun5d28"), new("Jaun648a")}},
+        {605, new (){new("Jaun1ad6", "Jauna1f9", "Jaun0fe3")}},
+        {606, new (){new("Gene44ef")}},
+        {607, new (){new("Gene77e7")}},
+        {608, new (){new("Gene1af2")}},
+        {609, new (){new("Gene3084")}},
+        {610, new (){new("Genec877")}},
+        {611, new (){new("Gene51be"), new("Geneea9f")}},
+
+        {701, new (){new("Noraa4b4")}},
+        {702, new (){new("Norac00b")}},
+        {703, new (){new("Noraee24"), new("Nora06b8", "Nora88cf")}},
+        {704, new (){new("Norabf3d"), new("Noradaf5")}},
+        {705, new (){new("Nora8e09"), new("Nora3c41")}},
+        {706, new (){new("Gene44ef")}},
+        {707, new (){new("Gene77e7")}},
+        {708, new (){new("Gene1af2")}},
+        {709, new (){new("Gene3084")}},
+        {710, new (){new("Genec877")}},
+        {711, new (){new("Gene51be"), new("Geneea9f")}},
+
+        {801, new (){new("Pyrr72e1")}},
+        {802, new (){new("Pyrrced7")}},
+        {803, new (){new("Pyrr8ef6"), new("Pyrr4187")}},
+        {804, new (){new("Pyrrd3ee"), new("Pyrr0a4b")}},
+        {805, new (){new("Pyrr0906"), new("Pyrr53dd")}},
+        {806, new (){new("Gene44ef")}},
+        {807, new (){new("Gene77e7")}},
+        {808, new (){new("Gene1af2")}},
+        {809, new (){new("Gene3084")}},
+        {810, new (){new("Genec877")}},
+        {811, new (){new("Gene51be"), new("Geneea9f")}},
+
+        {901, new (){new("Ren fa46")}},
+        {902, new (){new("Ren 419f")}},
+        {903, new (){new("Ren d6df"), new("Ren 1f27", "Ren db5c")}},
+        {904, new (){new("Ren 1dc7"), new("Ren 81b9")}},
+        {905, new (){new("Ren 8f75"), new("Ren 5e88")}},
+        {906, new (){new("Gene44ef")}},
+        {907, new (){new("Gene77e7")}},
+        {908, new (){new("Gene1af2")}},
+        {909, new (){new("Gene3084")}},
+        {910, new (){new("Genec877")}},
+        {911, new (){new("Gene51be"), new("Geneea9f")}},
     };
 
     private void Awake()
@@ -124,7 +172,7 @@ public class RWBYAP : BaseUnityPlugin
 
             if (item.ItemId >= 1 && item.ItemId <= 4)
             {
-                var cid = new string[]{"Rubyb2cc", "Weis9ad1", "Blak8346", "Yangcde5"}[item.ItemId - 1];
+                var cid = new string[]{"Rubyb2cc", "Weis9ad1", "Blak8346", "Yangcde5", "Jaun5986", "Noracf67", "Pyrrfad9", "Ren 7bb0"}[item.ItemId - 1];
                 var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();
                 var gm = Singleton_MonoBehaviour<GameManager>.Instance.Mode;
                 if (gm != null && pd != null && pd.GetPlayerCharacter().PlayableCharacterDefinition.ID == cid)
@@ -164,6 +212,10 @@ public class RWBYAP : BaseUnityPlugin
                     else if (item.ItemId < 400) cid = "Weis9ad1";
                     else if (item.ItemId < 500) cid = "Blak8346";
                     else if (item.ItemId < 600) cid = "Yangcde5";
+                    else if (item.ItemId < 700) cid = "Jaun5986";
+                    else if (item.ItemId < 800) cid = "Noracf67";
+                    else if (item.ItemId < 900) cid = "Pyrrfad9";
+                    else if (item.ItemId < 1000) cid = "Ren 7bb0";
                     var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();
                     var cu = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.CharacterUpgradeDatabase.Find(skill.Selected);
 

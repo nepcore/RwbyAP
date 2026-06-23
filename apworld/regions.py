@@ -53,5 +53,22 @@ def create_and_connect_regions(world: RWBYWorld) -> None:
         ruby,
         weiss,
         blake,
-        yang
+        yang,
     ]
+
+    if world.options.jnpr_enabled:
+        jaune = Region("Jaune Level Up", world.player, world.multiworld)
+        menu.connect(jaune, "Jaune Level Up Entrance", Has("Character Unlocked: Jaune"))
+        nora = Region("Nora Level Up", world.player, world.multiworld)
+        menu.connect(nora, "Nora Level Up Entrance", Has("Character Unlocked: Nora"))
+        pyrrha = Region("Pyrrha Level Up", world.player, world.multiworld)
+        menu.connect(pyrrha, "Pyrrha Level Up Entrance", Has("Character Unlocked: Pyrrha"))
+        ren = Region("Ren Level Up", world.player, world.multiworld)
+        menu.connect(ren, "Ren Level Up Entrance", Has("Character Unlocked: Ren"))
+
+        world.multiworld.regions += [
+            jaune,
+            nora,
+            pyrrha,
+            ren
+        ]

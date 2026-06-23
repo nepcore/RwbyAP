@@ -36,13 +36,13 @@ class RWBYWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
-        return self.options.as_dict("artifacts_in_pool", "artifacts_required_percentage")
+        return self.options.as_dict("artifacts_in_pool", "artifacts_required_percentage", "jnpr_enabled")
 
     def generate_early(self) -> None:
         # if in ut get options from slot data
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             slot_data: dict[str, Any] = re_gen_passthrough[self.game]
-            for key in ["artifacts_in_pool", "artifacts_required_percentage"]:
+            for key in ["artifacts_in_pool", "artifacts_required_percentage", "jnpr_enabled"]:
                 opt = getattr(self.options, key, None)
                 setattr(self.options, key, opt.from_any(slot_data[key]))

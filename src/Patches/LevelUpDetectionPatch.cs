@@ -12,10 +12,10 @@ public class LevelUpDetectionPatch : IRwbyGameplayPatch
         {"Weis9ad1", 200},
         {"Blak8346", 300},
         {"Yangcde5", 400},
-        {"Jaun5986", -1},
-        {"Noracf67", -1},
-        {"Pyrrfad9", -1},
-        {"Ren 7bb0", -1},
+        {"Jaun5986", 500},
+        {"Noracf67", 600},
+        {"Pyrrfad9", 700},
+        {"Ren 7bb0", 800},
     };
 
     public static void Postfix(PlayableCharacterDefinition ___m_playableCharacterDefinition, PlayerCharacter ___m_playerCharacter)
@@ -23,6 +23,5 @@ public class LevelUpDetectionPatch : IRwbyGameplayPatch
         var level = System.Convert.ToInt32(Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.DefaultProgressionCurve.GetDisplayLevel(___m_playerCharacter.Data.Experience));
         var id = CharacterIDBases.GetValueSafe(___m_playableCharacterDefinition.ID) + (level - 2);
         if (RWBYAP.Connection.Locations.AllMissingLocations.Contains(id)) RWBYAP.Connection.CompleteLocationChecks(id);
-        //RWBYAP.SendChat($"<color=cyan>{___m_playableCharacterDefinition.name.Replace(" Definition", "")}</color> Level Up ({level} // {id} // {id.GetType().FullName})");
     }
 }
