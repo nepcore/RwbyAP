@@ -424,7 +424,11 @@ def create_all_items(world: RWBYWorld) -> None:
     if world.options.jnpr_enabled:
         characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
 
+    characters = [name for name in characters if name not in world.options.characters_disabled]
+
     world.random.shuffle(characters)
+
+    characters = characters[:world.options.max_characters]
 
     for character in characters:
         skillpool = skills[character]

@@ -7,6 +7,9 @@ if TYPE_CHECKING:
 
 def set_all_rules(world: RWBYWorld) -> None:
     chars = ["Ruby", "Weiss", "Blake", "Yang"]
+    if world.options.jnpr_enabled:
+        chars += ["Jaune", "Nora", "Pyrrha", "Ren"]
+
     levels = [
         "Chapter Unlocked: Boots on the Ground",
         "Chapter Unlocked: Technical Difficulties",
