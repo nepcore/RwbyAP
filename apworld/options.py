@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Options import Accessibility, OptionGroup, OptionSet, PerGameCommonOptions, ProgressionBalancing, Range, Toggle
+from Options import Accessibility, Choice, DeathLink, OptionGroup, OptionSet, PerGameCommonOptions, ProgressionBalancing, Range, Toggle
 
 class ArtifactsInPool(Range):
     """How many artifacts should be in the item pool"""
@@ -28,6 +28,15 @@ class MaxCharacters(Range):
     range_end = 8
     default = 8
 
+class StartingCharacters(Range):
+    """How many characters should be available at the start"""
+
+    display_name = "Starting characters"
+
+    range_start = 1
+    range_end = 8
+    default = 1
+
 class CharacterLevelChecks(Range):
     """How many level up checks should be included per character"""
 
@@ -49,14 +58,46 @@ class CharactersDisabled(OptionSet):
 
     valid_keys = ["Ruby", "Weiss", "Blake", "Yang", "Jaune", "Nora", "Pyrrha", "Ren"]
 
+class DeathLinkReceiveMode(Choice):
+    """
+    How incoming deathlinks should be handled
+    "single" downs a single random player
+    "all" downs all players
+    """
+
+    display_name = "Death Link Receive Mode"
+
+    option_single = 1
+    option_all = 2
+
+    default = 1
+
+class DeathLinkSendMode(Choice):
+    """
+    When death links should be sent out
+    "single" sends a death link whenever any player goes down
+    "all" sends a death link when all players are downed
+    """
+
+    display_name = "Death Link Send Mode"
+
+    option_single = 1
+    option_all = 2
+
+    default = 2
+
 @dataclass
 class RWBYOptions(PerGameCommonOptions):
     artifacts_in_pool: ArtifactsInPool
     artifacts_required_percentage: ArtifactsRequiredPercentage
     max_characters: MaxCharacters
+    starting_characters: StartingCharacters
     character_level_checks: CharacterLevelChecks
     jnpr_enabled: JnprEnabled
     characters_disabled: CharactersDisabled
+    death_link: DeathLink
+    death_link_receive_mode: DeathLinkReceiveMode
+    death_link_send_mode: DeathLinkSendMode
 
 option_groups = [
     OptionGroup("Artifacts", [
@@ -65,9 +106,15 @@ option_groups = [
     ]),
     OptionGroup("Characters", [
         MaxCharacters,
+        StartingCharacters,
         CharacterLevelChecks,
         JnprEnabled,
         CharactersDisabled,
+    ]),
+    OptionGroup("Death Link", [
+        DeathLink,
+        DeathLinkReceiveMode,
+        DeathLinkSendMode,
     ]),
     OptionGroup("Advanced", [
         ProgressionBalancing,

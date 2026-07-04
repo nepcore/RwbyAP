@@ -2,8 +2,10 @@ using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.Helpers;
 using Archipelago.MultiClient.Net.Enums;
 using Archipelago.MultiClient.Net.Models;
+using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using UnityEngine;
 using HarmonyLib;
+using RwbyAP.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -176,14 +178,29 @@ public class APConnection
     private string slot;
     private string pass;
 
+    public string Host => host;
+    public string Port => port;
+    public string SlotName => slot;
+
     private ArchipelagoSession session;
     private GameObject lifecycle;
+    private DeathLinkService deathlink;
+    private long lastDeathLink;
     private bool shouldDisconnect = false;
 
     public bool Connected => session != null && session.Socket != null && session.Socket.Connected;
     public string Seed => session?.RoomState?.Seed;
     public int? Slot => session?.ConnectionInfo?.Slot;
     public int? Team => session?.ConnectionInfo?.Team;
+    public DeathLink DeathLinkWaitingToProcess;
+    public DeathLinkMode DeathLinkReceiveMode {
+        get;
+        private set;
+    }
+    public DeathLinkMode DeathLinkSendMode {
+        get;
+        private set;
+    }
 
     public ILocationCheckHelper Locations => Connected ? session.Locations : new DummyLocations();
     public IReceivedItemsHelper Items => Connected ? session.Items : new DummyItems();
@@ -264,6 +281,48 @@ public class APConnection
                         RWBYAP.ArtifactsRequired = (long) Math.Floor(artifactsInPool * (artifactsRequiredPercentage / 100.0));
                     }
 
+                    RWBYAP.Logger.LogInfo("Preparing deathlink handler");
+                    deathlink = DeathLinkProvider.CreateDeathLinkService(session);
+
+                    Action<DeathLink> deathLinkReceived = dl => {};
+                    switch (login.SlotData.GetValueSafe("death_link"))
+                    {
+                        case long deathlinkState:
+                            if (deathlinkState == 1) deathlink.EnableDeathLink();
+                            break;
+                    }
+
+                    switch (login.SlotData.GetValueSafe("death_link_receive_mode"))
+                    {
+                        case long mode:
+                            if (mode == 2) DeathLinkReceiveMode = DeathLinkMode.All;
+                            else DeathLinkReceiveMode = DeathLinkMode.Single;
+                            break;
+                        default:
+                            DeathLinkReceiveMode = DeathLinkMode.Single;
+                            break;
+                    }
+
+                    switch (login.SlotData.GetValueSafe("death_link_send_mode"))
+                    {
+                        case long mode:
+                            if (mode == 1) DeathLinkSendMode = DeathLinkMode.Single;
+                            else DeathLinkSendMode = DeathLinkMode.All;
+                            break;
+                        default:
+                            DeathLinkSendMode = DeathLinkMode.All;
+                            break;
+                    }
+
+                    lastDeathLink = 0;
+                    deathlink.OnDeathLinkReceived += dl => {
+                        var now = (long) System.DateTimeOffset.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+                        if (lastDeathLink < now - 2) {
+                            lastDeathLink = now;
+                            DeathLinkWaitingToProcess = dl;
+                        }
+                    };
+
                     RWBYAP.Logger.LogInfo("Setting up handlers");
                     session.Socket.ErrorReceived += delegate {
                         lifecycle.GetComponent<LifecycleHook>().Reconnect();
@@ -314,10 +373,36 @@ public class APConnection
         session.SetGoalAchieved();
     }
 
+    public void SendDeathLink() {
+        if (!IsDeathLinkOn()) return;
+        new System.Threading.Thread(() => {
+            var now = (long) System.DateTimeOffset.UtcNow.Subtract(new System.DateTime(1970, 1, 1)).TotalSeconds;
+            if (lastDeathLink < now - 2) {
+                lastDeathLink = now;
+                deathlink.SendDeathLink(new DeathLink(SlotName));
+            }
+        }).Start();
+    }
+
+    public void ToggleDeathLink()
+    {
+        new System.Threading.Thread(() => {
+            if (!IsDeathLinkOn()) deathlink.EnableDeathLink();
+            else deathlink.DisableDeathLink();
+        }).Start();
+    }
+
+    public bool IsDeathLinkOn()
+    {
+        return Array.IndexOf(session.ConnectionInfo.Tags, "DeathLink") != -1;
+    }
+
     public void Disconnect()
     {
         shouldDisconnect = true;
-        lifecycle?.GetComponent<LifecycleHook>()?.CancelReconnectTask();
+        try {
+            lifecycle?.GetComponent<LifecycleHook>()?.CancelReconnectTask();
+        } catch {} // ignore exception
         if (session == null || session.Socket == null || !session.Socket.Connected) return;
         session.Socket.Disconnect();
     }

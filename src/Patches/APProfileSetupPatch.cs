@@ -9,7 +9,7 @@ public class APProfileSetupPatch : IRwbyGameplayPatch
 {
     public static bool Prefix(ref PlayerProfile.ProfileData ___m_profileData)
     {
-        var loaded = RWBYAP.Connection.DataStorage[$"{RWBYAP.Connection.Team}_{RWBYAP.Connection.Slot}_rwbyge_profile"];
+        var loaded = RWBYAP.Connection.DataStorage[$"{RWBYAP.Connection.Team}_{RWBYAP.Connection.Slot}_rwbyge_profile_{OnlineManager.GetLocalUserDisplayName()}"];
         string json = null;
         if (loaded != null) json = loaded.To<string>();
         if (json != null)

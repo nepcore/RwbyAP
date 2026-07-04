@@ -3,6 +3,7 @@ from typing import Any
 from worlds.AutoWorld import World
 from . import items, locations, regions, rules, web_world
 from . import options as rwby_options
+from Options import OptionError
 
 class RWBYWorld(World):
     """
@@ -36,7 +37,14 @@ class RWBYWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
-        return self.options.as_dict("artifacts_in_pool", "artifacts_required_percentage", "jnpr_enabled")
+        return self.options.as_dict(
+            "artifacts_in_pool",
+            "artifacts_required_percentage",
+            "jnpr_enabled",
+            "death_link",
+            "death_link_receive_mode",
+            "death_link_send_mode"
+        )
 
     def generate_early(self) -> None:
         # if in ut get options from slot data
@@ -46,3 +54,12 @@ class RWBYWorld(World):
             for key in ["artifacts_in_pool", "artifacts_required_percentage", "jnpr_enabled"]:
                 opt = getattr(self.options, key, None)
                 setattr(self.options, key, opt.from_any(slot_data[key]))
+        else:
+            chars = ["Ruby", "Weiss", "Blake", "Yang"]
+            if self.options.jnpr_enabled:
+                chars += ["Jaune", "Nora", "Pyrrha", "Ren"]
+
+            max_chars = len([char for char in chars if not char in self.options.characters_disabled])
+
+            if max_chars < self.options.starting_characters:
+                raise OptionError("Cannot have more starting characters than characters allowed in generation")

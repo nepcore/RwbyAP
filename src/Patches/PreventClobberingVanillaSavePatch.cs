@@ -53,7 +53,7 @@ public class PreventClobberingVanillaSavePatch : IRwbyGameplayPatch
 
         RWBYAP.Logger.LogInfo("Writing profile to datastorage");
         new System.Threading.Thread(() => {
-            RWBYAP.Connection.DataStorage[$"{RWBYAP.Connection.Team}_{RWBYAP.Connection.Slot}_rwbyge_profile"] = json;
+            RWBYAP.Connection.DataStorage[$"{RWBYAP.Connection.Team}_{RWBYAP.Connection.Slot}_rwbyge_profile_{OnlineManager.GetLocalUserDisplayName()}"] = json;
         }).Start();
         lastSave = now;
     }

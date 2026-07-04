@@ -150,7 +150,37 @@ public class RWBYAP : BaseUnityPlugin
         harmony.PatchByInterface(typeof(IRwbyEssentialPatch));
     }
 
+    public static void KillRandomPlayer()
+    {
+        if (!Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer) return;
+        if (Singleton_MonoBehaviour<ApplicationManager>.Instance.State is GameState_Main)
+        {
+            var players = Singleton_MonoBehaviour<GameManager>.Instance.GameData.ValidPlayers.Select(p => p.GetPlayerCharacter()).Where(p => p.IsAlive).ToArray();
+            var player = players[Random.Range(0, players.Length)];
+            player.photonView.RPC("Die", PhotonTargets.All, player.photonView.viewID, new int[0], "Killba39");
+        }
+    }
+
+    public static void KillAllPlayers()
+    {
+        if (!Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer) return;
+        if (Singleton_MonoBehaviour<ApplicationManager>.Instance.State is GameState_Main)
+        {
+            foreach (var player in Singleton_MonoBehaviour<GameManager>.Instance.GameData.ValidPlayers.Select(p => p.GetPlayerCharacter()).Where(p => p.IsAlive))
+                player.photonView.RPC("Die", PhotonTargets.All, player.photonView.viewID, new int[0], "Killba39");
+        }
+    }
+
     private void Update() {
+        if (Connection?.DeathLinkWaitingToProcess != null)
+        {
+            if (Connection.DeathLinkWaitingToProcess.Cause != null) RWBYAP.SendChat(Connection.DeathLinkWaitingToProcess.Cause);
+            else RWBYAP.SendChat($"{Connection.DeathLinkWaitingToProcess.Source} died");
+            if (Connection.DeathLinkReceiveMode == DeathLinkMode.Single) KillRandomPlayer();
+            else KillAllPlayers();
+            Connection.DeathLinkWaitingToProcess = null;
+        }
+
         var messages = System.Math.Min(chatQueue.Count, 3);
         for (var i = 0; i < messages; i++)
         {
@@ -170,7 +200,7 @@ public class RWBYAP : BaseUnityPlugin
                 continue;
             }
 
-            if (item.ItemId >= 1 && item.ItemId <= 4)
+            if (item.ItemId >= 1 && item.ItemId <= 8)
             {
                 var cid = new string[]{"Rubyb2cc", "Weis9ad1", "Blak8346", "Yangcde5", "Jaun5986", "Noracf67", "Pyrrfad9", "Ren 7bb0"}[item.ItemId - 1];
                 var pd = Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData();

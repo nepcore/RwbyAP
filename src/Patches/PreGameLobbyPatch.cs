@@ -11,6 +11,7 @@ public class PreGameLobbyPatch : IRwbyGameplayPatch
     {
         RWBYAP.MakeArtifactLabel(___m_lobbyPanel.gameObject);
 
+        if (!Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer) return;
         ___m_privacyButton.gameObject.SetActive(false);
         var campaign = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.CampaignDefinitionDatabase.GetFirstCampaignInStyle(CampaignDefinition.CampaignStyle.Campaign);
         Singleton_MonoBehaviour<GameManager>.Instance.GameData.CampaignID = campaign.ID;

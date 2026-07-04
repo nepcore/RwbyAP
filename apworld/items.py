@@ -435,7 +435,9 @@ def create_all_items(world: RWBYWorld) -> None:
         world.random.shuffle(skillpool)
         itempool += skillpool[:13]
 
-    precollected += [f"Character Unlocked: {characters.pop()}"]
+    for _ in range(world.options.starting_characters):
+        precollected += [f"Character Unlocked: {characters.pop()}"]
+
     itempool += [f"Character Unlocked: {name}" for name in characters]
 
     itempool += (["Artifact"] * world.options.artifacts_in_pool)

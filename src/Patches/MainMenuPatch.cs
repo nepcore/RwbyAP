@@ -4,6 +4,8 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
+using System.Linq;
+
 namespace RwbyAP.Patches;
 
 [HarmonyPatch(typeof(MainMenuController), "Initialize")]
@@ -20,15 +22,6 @@ public class MainMenuPatch : IRwbyEssentialPatch
     public static void Postfix(MainMenuPanel ___m_mainMenuPanel)
     {
         InjectTranslations();
-        // foreach (var upgrade in Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.CharacterUpgradeDatabase.GetData())
-        // {
-        //     RWBYAP.Logger.LogInfo($"{upgrade.ID} / {upgrade.Name} / {upgrade.Description} / {upgrade.name}");
-        // }
-        // foreach (var pc in Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.PlayableCharacters.GetData())
-        // {
-        //     RWBYAP.Logger.LogInfo($"{pc.ID} / {pc.Name}");
-        // }
-
         var label = GameObject.Find("/Global - GUI(Clone)/PanelRoot/MainMenuPanel(Clone)/ButtonPanel (1)/Profile/Text");
         var text = label.GetComponent<Text>();
         text.text = "ARCHIPELAGO";
@@ -122,6 +115,7 @@ public class MainMenuPatch : IRwbyEssentialPatch
         RWBYAP.Harmony.PatchByInterface(typeof(IRwbyGameplayPatch));
     }
 
+    private static System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
     public static void OnArchipelago(string host, string port, string slot, string pass)
     {
         RWBYAP.Logger.LogInfo($"Connect: {slot}:{pass}@{host}:{port}");
@@ -133,7 +127,23 @@ public class MainMenuPatch : IRwbyEssentialPatch
             Inject();
             // reload profile after patching, reload is patched to set up an AP specific profile state
             Singleton_MonoBehaviour<ApplicationManager>.Instance.Profile.Reload();
-            typeof(ApplicationManager).GetMethod("PlayFriends_CreateLobby", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Singleton_MonoBehaviour<ApplicationManager>.Instance, []);
+
+            // attempt to join a room
+            typeof(ApplicationManager).GetMethod("ChangeLocalState", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Singleton_MonoBehaviour<ApplicationManager>.Instance, [new GameState_JoinTargetMatch(Singleton_MonoBehaviour<ConnectionManager>.Instance.GetDesiredRoomName(), () => {
+                // if that fails try to create it instead
+                typeof(ApplicationManager).GetMethod("ChangeLocalState", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(Singleton_MonoBehaviour<ApplicationManager>.Instance, [new GameState_CreateMatch(useLobby: true, ConnectionManager.RoomPrivacy.Private, CampaignDefinition.CampaignStyle.Campaign, () => {
+                    YesNoPrompt prompt = Roost.Singleton_MonoBehaviour<UIManager>.Instance.CreateWidget(Roost.Singleton_MonoBehaviour<UIManager>.Instance.PanelPrefabs.YesNoPrompt, Roost.Singleton_MonoBehaviour<UIManager>.Instance.ModalOverlayTransform);
+                    prompt.Title.text = "ERROR";
+                    prompt.Description.text = "Failed to create or join room";
+                    prompt.NoButtonText.text= "RETURN";
+                    prompt.NoButton.onClick.AddListener(() => {
+                        Roost.Util.DestroyGameObject(prompt.gameObject);
+                    });
+                    prompt.NoButton.Select();
+                    prompt.Spacer.SetActive(value: true);
+                    prompt.YesButton.gameObject.SetActive(value: false);
+                })]);
+            })]);
         });
     }
 }
