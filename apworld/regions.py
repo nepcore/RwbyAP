@@ -29,15 +29,6 @@ def create_and_connect_regions(world: RWBYWorld) -> None:
     ch10 = Region("Final Exam", world.player, world.multiworld)
     menu.connect(ch10, "Final Exam Entrance", Has("Chapter Unlocked: Final Exam"))
 
-    ruby = Region("Ruby Level Up", world.player, world.multiworld)
-    menu.connect(ruby, "Ruby Level Up Entrance", Has("Character Unlocked: Ruby"))
-    weiss = Region("Weiss Level Up", world.player, world.multiworld)
-    menu.connect(weiss, "Weiss Level Up Entrance", Has("Character Unlocked: Weiss"))
-    blake = Region("Blake Level Up", world.player, world.multiworld)
-    menu.connect(blake, "Blake Level Up Entrance", Has("Character Unlocked: Blake"))
-    yang = Region("Yang Level Up", world.player, world.multiworld)
-    menu.connect(yang, "Yang Level Up Entrance", Has("Character Unlocked: Yang"))
-
     world.multiworld.regions += [
         menu,
         ch1,
@@ -50,25 +41,15 @@ def create_and_connect_regions(world: RWBYWorld) -> None:
         ch8,
         ch9,
         ch10,
-        ruby,
-        weiss,
-        blake,
-        yang,
     ]
 
+    characters = ["Ruby", "Weiss", "Blake", "Yang"]
     if world.options.jnpr_enabled:
-        jaune = Region("Jaune Level Up", world.player, world.multiworld)
-        menu.connect(jaune, "Jaune Level Up Entrance", Has("Character Unlocked: Jaune"))
-        nora = Region("Nora Level Up", world.player, world.multiworld)
-        menu.connect(nora, "Nora Level Up Entrance", Has("Character Unlocked: Nora"))
-        pyrrha = Region("Pyrrha Level Up", world.player, world.multiworld)
-        menu.connect(pyrrha, "Pyrrha Level Up Entrance", Has("Character Unlocked: Pyrrha"))
-        ren = Region("Ren Level Up", world.player, world.multiworld)
-        menu.connect(ren, "Ren Level Up Entrance", Has("Character Unlocked: Ren"))
+        characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
 
-        world.multiworld.regions += [
-            jaune,
-            nora,
-            pyrrha,
-            ren
-        ]
+    characters = [name for name in characters if name not in world.options.characters_disabled]
+
+    for character in characters:
+        region = Region(f"{character} Level Up", world.player, world.multiworld)
+        menu.connect(region, f"{character} Level Up Entrance", Has(f"Character Unlocked: {character}"))
+        world.multiworld.regions.append(region)

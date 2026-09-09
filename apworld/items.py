@@ -144,7 +144,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Pyrrha 10 XP": ItemClassification.filler,
     "Ren 10 XP": ItemClassification.filler,
     # Progression
-    "Artifact": ItemClassification.progression,
+    "Artifact": ItemClassification.progression_skip_balancing,
     # Stages
     "Chapter Unlocked: Boots on the Ground": ItemClassification.progression | ItemClassification.useful,
     "Chapter Unlocked: Technical Difficulties": ItemClassification.progression | ItemClassification.useful,
@@ -403,9 +403,12 @@ class RWBYItem(Item):
     game = "RWBY Grimm Eclipse"
 
 def get_random_filler_item_name(world: RWBYWorld) -> str:
-    fillers = ["Ruby 10 XP", "Weiss 10 XP", "Blake 10 XP", "Yang 10 XP"]
+    characters = ["Ruby", "Weiss", "Blake", "Yang"]
     if world.options.jnpr_enabled:
-        fillers += ["Jaune 10 XP", "Nora 10 XP", "Pyrrha 10 XP", "Ren 10 XP"]
+        characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
+
+    fillers = [f"{name} 10 XP" for name in characters if name not in world.options.characters_disabled]
+
     n = world.random.randint(0, len(fillers) - 1)
     return fillers[n]
 

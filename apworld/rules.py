@@ -10,6 +10,8 @@ def set_all_rules(world: RWBYWorld) -> None:
     if world.options.jnpr_enabled:
         chars += ["Jaune", "Nora", "Pyrrha", "Ren"]
 
+    chars = [name for name in chars if name not in world.options.characters_disabled]
+
     levels = [
         "Chapter Unlocked: Boots on the Ground",
         "Chapter Unlocked: Technical Difficulties",
