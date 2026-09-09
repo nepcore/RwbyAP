@@ -420,6 +420,9 @@ def create_all_items(world: RWBYWorld) -> None:
     precollected: list[Item] = []
 
     levels = [name for name, _ in ITEM_NAME_TO_ID.items() if name.startswith("Chapter Unlocked:")]
+    if world.options.randomize_starting_level:
+        itempool.append(levels.pop())
+        world.random.shuffle(levels)
     precollected += levels[:1]
     itempool += levels[1:]
 

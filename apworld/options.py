@@ -19,6 +19,11 @@ class ArtifactsRequiredPercentage(Range):
     range_end = 100
     default = 80
 
+class RandomizeStartingLevel(Toggle):
+    """If the starting level should be randomized"""
+
+    display_name = "Randomize starting level"
+
 class MaxCharacters(Range):
     """How many characters should at most be included in the generated seed"""
 
@@ -90,6 +95,7 @@ class DeathLinkSendMode(Choice):
 class RWBYOptions(PerGameCommonOptions):
     artifacts_in_pool: ArtifactsInPool
     artifacts_required_percentage: ArtifactsRequiredPercentage
+    randomize_starting_level: RandomizeStartingLevel
     max_characters: MaxCharacters
     starting_characters: StartingCharacters
     character_level_checks: CharacterLevelChecks
@@ -103,6 +109,9 @@ option_groups = [
     OptionGroup("Artifacts", [
         ArtifactsInPool,
         ArtifactsRequiredPercentage,
+    ]),
+    OptionGroup("Levels", [
+        RandomizeStartingLevel,
     ]),
     OptionGroup("Characters", [
         MaxCharacters,
