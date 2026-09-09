@@ -397,6 +397,13 @@ public class APConnection
         return Array.IndexOf(session.ConnectionInfo.Tags, "DeathLink") != -1;
     }
 
+    public void SendAPMessage(string msg)
+    {
+        new System.Threading.Thread(() => {
+            session.Say(msg);
+        }).Start();
+    }
+
     public void Disconnect()
     {
         shouldDisconnect = true;
