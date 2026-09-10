@@ -181,6 +181,32 @@ public class RWBYAP : BaseUnityPlugin
             Connection.DeathLinkWaitingToProcess = null;
         }
 
+        if (Input.GetKeyDown(KeyCode.F1) || InControl.InputManager.ActiveDevice.DPadLeft.WasPressed)
+        {
+            var level = Singleton_MonoBehaviour<ApplicationManager>.Instance.GetCurrentLevelDefinition();
+            if (level.SceneName == "Emerald_Forest_02" && (Connection?.Locations.AllLocationsChecked.Contains(20000)).GetValueOrDefault(false))
+            {
+                GameObject.Find("/EmeraldForest_02_Campaign01_Data/Paths/Path_1").GetComponent<NetworkedSwitch>().ToggleSwitch();
+                GameObject.Find("/EmeraldForest_02_Campaign01_Data/Paths/Path_2").GetComponent<NetworkedSwitch>().ToggleSwitch();
+            }
+            else if (level.SceneName == "Mountain_Glenn_01" && (Connection?.Locations.AllLocationsChecked.Contains(30000)).GetValueOrDefault(false))
+            {
+                GameObject.Find("/Mountain_Glenn_01_Campaign_Data/Doors/Blocker1").GetComponent<NetworkedSwitch>().ToggleSwitch();
+                GameObject.Find("/Mountain_Glenn_01_Campaign_Data/Doors/Blocker2").GetComponent<NetworkedSwitch>().ToggleSwitch();
+            }
+            else if (level.SceneName == "Merlot_Island_02" && (Connection?.Locations.AllLocationsChecked.Contains(80000)).GetValueOrDefault(false))
+            {
+                GameObject.Find("/Forsaken_Desert_Campaign02_Data/ActionGroups/MerlotIsland_SteamDamage (1) LEFT/Switch")
+                    .GetComponent<NetworkedSwitch>().ToggleSwitch();
+                GameObject.Find("/Forsaken_Desert_Campaign02_Data/ActionGroups/MerlotIsland_SteamDamage (1) LEFT/ParticlesSwitch")
+                    .GetComponent<NetworkedSwitch>().ToggleSwitch();
+                GameObject.Find("/Forsaken_Desert_Campaign02_Data/ActionGroups/MerlotIsland_SteamDamage (1) RIGHT/Switch")
+                    .GetComponent<NetworkedSwitch>().ToggleSwitch();
+                GameObject.Find("/Forsaken_Desert_Campaign02_Data/ActionGroups/MerlotIsland_SteamDamage (1) RIGHT/ParticlesSwitch")
+                    .GetComponent<NetworkedSwitch>().ToggleSwitch();
+            }
+        }
+
         var messages = System.Math.Min(chatQueue.Count, 3);
         for (var i = 0; i < messages; i++)
         {
