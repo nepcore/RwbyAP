@@ -64,3 +64,14 @@ class RWBYWorld(World):
 
             if max_chars < self.options.starting_characters:
                 raise OptionError("Cannot have more starting characters than characters allowed in generation")
+
+    def custom_ut_sort(self, region_label: str, location_label: str) -> str | int:
+        # fix locations that are not quite in the right place in id order
+        if location_label == "Technical Difficulties - Before Arena 2 Crate 5":
+            return locations.LOCATION_NAME_TO_ID["Technical Difficulties - Before Arena 2 Crate 4"]
+        if location_label == "Technical Difficulties - Before Arena 4 Crate 6":
+            return locations.LOCATION_NAME_TO_ID["Technical Difficulties - Before Arena 4 Crate 5"]
+        if location_label == "Technical Difficulties - Before Arena 4 Crate 7":
+            return locations.LOCATION_NAME_TO_ID["Technical Difficulties - Before Arena 4 Crate 5"]
+        # everything else just uses id order
+        return locations.LOCATION_NAME_TO_ID[location_label]
