@@ -1,0 +1,19 @@
+{
+  "name": "RWBY: Grimm Eclipse AP",
+  "lspclient": {
+    "servers": {
+      "python": {
+        "root": "",
+        "settings": {
+          "pylsp": {
+            "plugins": {
+              "jedi": {
+                "extra_paths": ["./Archipelago"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

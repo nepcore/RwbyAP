@@ -26,6 +26,8 @@ public class RWBYAP : BaseUnityPlugin
     public static int ItemsProcessed = 0;
     public static long ArtifactsRequired = 40;
     public static long ArtifactsFound => Connection.Items.AllItemsReceived.Count(item => item.ItemId == 99);
+    public static long LevelCompletionsRequired = 0;
+    public static long LevelsCompleted => Connection.Locations.AllLocationsChecked.Count(loc => loc > 0 && loc % 10000 == 0);
 
     public static Dictionary<string, long> Levels = new() {
         {"Emerald_Forest_01", 101},
@@ -181,7 +183,7 @@ public class RWBYAP : BaseUnityPlugin
             Connection.DeathLinkWaitingToProcess = null;
         }
 
-        if (Input.GetKeyDown(KeyCode.F1) || InControl.InputManager.ActiveDevice.DPadLeft.WasPressed)
+        if (Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer || Input.GetKeyDown(KeyCode.F1) || InControl.InputManager.ActiveDevice.DPadLeft.WasPressed)
         {
             var level = Singleton_MonoBehaviour<ApplicationManager>.Instance.GetCurrentLevelDefinition();
             if (level.SceneName == "Emerald_Forest_02" && (Connection?.Locations.AllLocationsChecked.Contains(20000)).GetValueOrDefault(false))
@@ -343,7 +345,13 @@ public class RWBYAP : BaseUnityPlugin
         return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.zero);
     }
 
-    public static void MakeArtifactLabel(GameObject parent)
+    public static void MakeGoalConditionLabels(GameObject parent)
+    {
+        MakeArtifactLabel(parent);
+        MakeLevelCompletionLabel(parent);
+    }
+
+    private static void MakeArtifactLabel(GameObject parent)
     {
         if (ArtifactsRequired == 0) return;
 
@@ -369,6 +377,36 @@ public class RWBYAP : BaseUnityPlugin
         label.gameObject.SetActive(true);
         var labelrect = label.GetComponent<RectTransform>();
         labelrect.anchoredPosition = new Vector2(-185, -119);
+        labelrect.anchorMax = labelrect.anchorMin = labelrect.pivot = new Vector2(1, 1);
+        labelrect.localScale = new Vector3(1, 1, 1);
+    }
+
+    private static void MakeLevelCompletionLabel(GameObject parent)
+    {
+        if (LevelCompletionsRequired == 0) return;
+
+        var icon = new GameObject("Chapter Icon");
+        var img = icon.AddComponent<Image>();
+        img.sprite = SpriteFromResource("RwbyAP.assets.chapter_complete.png");
+        icon.transform.SetParent(parent.transform);
+        icon.gameObject.SetActive(true);
+        var iconrect = icon.GetComponent<RectTransform>();
+        iconrect.anchoredPosition = new Vector2(-450, -122);
+        iconrect.anchorMax = iconrect.anchorMin = iconrect.pivot = new Vector2(1, 1);
+        iconrect.localScale = new Vector3(0.3f, 0.4f, 1);
+
+        var label = new GameObject("Chapter Label");
+        var text = label.AddComponent<Text>();
+        text.font = GameObject.Find("/Global - GUI(Clone)/PanelRoot/GenericSelectionPanel(Clone)/Title/Text").GetComponent<Text>().font;
+        text.fontSize = 36;
+        var state = label.AddComponent<GameObjectStateOverride>();
+        state.OnUpdate = go => {
+            go.GetComponent<Text>().text = $"{LevelsCompleted} / {LevelCompletionsRequired}";
+        };
+        label.transform.SetParent(parent.transform);
+        label.gameObject.SetActive(true);
+        var labelrect = label.GetComponent<RectTransform>();
+        labelrect.anchoredPosition = new Vector2(-335, -119);
         labelrect.anchorMax = labelrect.anchorMin = labelrect.pivot = new Vector2(1, 1);
         labelrect.localScale = new Vector3(1, 1, 1);
     }

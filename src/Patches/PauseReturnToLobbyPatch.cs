@@ -8,7 +8,7 @@ public class PauseReturnToLobbyPatch : IRwbyGameplayPatch
 {
     public static void Postfix(GenericSelectionPanel ___m_inGameMenuPanel)
     {
-        RWBYAP.MakeArtifactLabel(___m_inGameMenuPanel.gameObject);
+        RWBYAP.MakeGoalConditionLabels(___m_inGameMenuPanel.gameObject);
 
         if (!PhotonNetwork.isMasterClient) return;
         ___m_inGameMenuPanel.SelectionItems[4].Localization.Term = "AP_ReturnToLobby";

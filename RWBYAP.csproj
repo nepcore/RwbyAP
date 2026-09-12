@@ -29,6 +29,7 @@
     </Reference>
 
     <EmbeddedResource Include="assets/golden_knight.png" />
+    <EmbeddedResource Include="assets/chapter_complete.png" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">

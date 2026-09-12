@@ -281,6 +281,17 @@ public class APConnection
                         RWBYAP.ArtifactsRequired = (long) Math.Floor(artifactsInPool * (artifactsRequiredPercentage / 100.0));
                     }
 
+                    switch (login.SlotData.GetValueSafe("level_completions_required"))
+                    {
+                        case long required:
+                            RWBYAP.LevelCompletionsRequired = required;
+                            break;
+                        default:
+                            CreateErrorWidget("SLOT DATA ERROR", "Couldn't fetch required level complation count from slot data, assuming default (0)", "CLOSE");
+                            RWBYAP.LevelCompletionsRequired = 0;
+                            break;
+                    }
+
                     RWBYAP.Logger.LogInfo("Preparing deathlink handler");
                     deathlink = DeathLinkProvider.CreateDeathLinkService(session);
 

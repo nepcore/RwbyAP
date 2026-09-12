@@ -19,6 +19,15 @@ class ArtifactsRequiredPercentage(Range):
     range_end = 100
     default = 80
 
+class LevelCompletionsRequired(Range):
+    """How many levels you need to complete to goal"""
+
+    display_name = "Number of completed levels required to goal"
+
+    range_start = 0
+    range_end = 9
+    default = 0
+
 class RandomizeStartingLevel(Toggle):
     """If the starting level should be randomized"""
 
@@ -57,7 +66,11 @@ class JnprEnabled(Toggle):
     display_name = "JNPR DLC enabled"
 
 class CharactersDisabled(OptionSet):
-    """Characters in this list will never appear in the generated seed"""
+    """
+    Characters in this list will never appear in the generated seed
+
+    Valid entries are: Ruby, Weiss, Blake, Yang, Jaune, Nora, Pyrrha, Ren
+    """
 
     display_name = "Characters disabled"
 
@@ -95,6 +108,7 @@ class DeathLinkSendMode(Choice):
 class RWBYOptions(PerGameCommonOptions):
     artifacts_in_pool: ArtifactsInPool
     artifacts_required_percentage: ArtifactsRequiredPercentage
+    level_completions_required: LevelCompletionsRequired
     randomize_starting_level: RandomizeStartingLevel
     max_characters: MaxCharacters
     starting_characters: StartingCharacters
@@ -106,9 +120,10 @@ class RWBYOptions(PerGameCommonOptions):
     death_link_send_mode: DeathLinkSendMode
 
 option_groups = [
-    OptionGroup("Artifacts", [
+    OptionGroup("Goal", [
         ArtifactsInPool,
         ArtifactsRequiredPercentage,
+        LevelCompletionsRequired,
     ]),
     OptionGroup("Levels", [
         RandomizeStartingLevel,

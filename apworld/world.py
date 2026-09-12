@@ -40,6 +40,7 @@ class RWBYWorld(World):
         return self.options.as_dict(
             "artifacts_in_pool",
             "artifacts_required_percentage",
+            "level_completions_required",
             "jnpr_enabled",
             "death_link",
             "death_link_receive_mode",
@@ -51,7 +52,7 @@ class RWBYWorld(World):
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             slot_data: dict[str, Any] = re_gen_passthrough[self.game]
-            for key in ["artifacts_in_pool", "artifacts_required_percentage", "jnpr_enabled"]:
+            for key in ["artifacts_in_pool", "artifacts_required_percentage", "level_completions_required", "jnpr_enabled"]:
                 opt = getattr(self.options, key, None)
                 setattr(self.options, key, opt.from_any(slot_data[key]))
         else:

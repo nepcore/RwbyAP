@@ -549,6 +549,12 @@ def create_all_locations(world: RWBYWorld) -> None:
         "Final Exam": ch10,
     }.items():
         world.get_region(level).add_locations(checks, RWBYLocation)
+        world.get_region(level).add_event(
+            f"Level Complete - {level}",
+            f"Level Complete - {level}",
+            location_type=RWBYLocation,
+            item_type=items.RWBYItem
+        )
 
     characters = ["Ruby", "Weiss", "Blake", "Yang"]
     if world.options.jnpr_enabled:

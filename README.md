@@ -13,4 +13,7 @@ Apart from that the mod can be built with a simple `dotnet build`, assuming a .N
 ## Licenses
 
 The file `assets/golden_knight.png` is a modification of the white knight from the [Staunty chess piece set](https://github.com/lichess-org/lila/tree/master/public/piece/staunty) by sadsnake1.  
-Both the original and this modification are available unter the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+Both the original and this modification are available under the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+
+The file `assets/chapter_complete.png` is based on two icons from the [Font Awesome Free](https://fontawesome.com/search?ic=free-collection) icon set by Fonticons, Inc.  
+Both the originals and this derivative are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
