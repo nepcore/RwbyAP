@@ -183,7 +183,7 @@ public class RWBYAP : BaseUnityPlugin
             Connection.DeathLinkWaitingToProcess = null;
         }
 
-        if (Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer || Input.GetKeyDown(KeyCode.F1) || InControl.InputManager.ActiveDevice.DPadLeft.WasPressed)
+        if (Singleton_MonoBehaviour<ConnectionManager>.Instance.IsServer && (Input.GetKeyDown(KeyCode.F1) || InControl.InputManager.ActiveDevice.DPadLeft.WasPressed))
         {
             var level = Singleton_MonoBehaviour<ApplicationManager>.Instance.GetCurrentLevelDefinition();
             if (level.SceneName == "Emerald_Forest_02" && (Connection?.Locations.AllLocationsChecked.Contains(20000)).GetValueOrDefault(false))
