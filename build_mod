@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+dotnet build -c Release && cp bin/Release/net35/RwbyAP.dll ~/.steam/steam/steamapps/common/RWBY_GE/BepInEx/plugins/RwbyAP/RwbyAP.dll

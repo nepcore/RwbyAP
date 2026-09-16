@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cp -r apworld rwby_ge && sed -i -e 's/"world_version": "0.0.0"/"world_version": "0.2.3"/g' rwby_ge/archipelago.json && zip -r9 rwby_ge.apworld rwby_ge && rm -r rwby_ge
