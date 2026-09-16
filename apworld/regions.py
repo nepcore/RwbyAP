@@ -43,13 +43,7 @@ def create_and_connect_regions(world: RWBYWorld) -> None:
         ch10,
     ]
 
-    characters = ["Ruby", "Weiss", "Blake", "Yang"]
-    if world.options.jnpr_enabled:
-        characters += ["Jaune", "Nora", "Pyrrha", "Ren"]
-
-    characters = [name for name in characters if name not in world.options.characters_disabled]
-
-    for character in characters:
+    for character in world.characters:
         region = Region(f"{character} Level Up", world.player, world.multiworld)
         menu.connect(region, f"{character} Level Up Entrance", Has(f"Character Unlocked: {character}"))
         world.multiworld.regions.append(region)

@@ -6,12 +6,6 @@ if TYPE_CHECKING:
     from .world import RWBYWorld
 
 def set_all_rules(world: RWBYWorld) -> None:
-    chars = ["Ruby", "Weiss", "Blake", "Yang"]
-    if world.options.jnpr_enabled:
-        chars += ["Jaune", "Nora", "Pyrrha", "Ren"]
-
-    chars = [name for name in chars if name not in world.options.characters_disabled]
-
     levels = [
         "Boots on the Ground",
         "Technical Difficulties",
@@ -25,12 +19,12 @@ def set_all_rules(world: RWBYWorld) -> None:
         "Final Exam",
     ]
 
-    for char in chars:
+    for char in world.characters:
         for i in range(2, world.options.character_level_checks + 1):
             world.set_rule(world.get_location(f"{char} - Level {i}"), HasFromListUnique(*[f"Chapter Unlocked: {level}" for level in levels], count = i - 1))
 
     skills = Or(
-        *[HasAll(f"Character Unlocked: {char}", f"{char} - Aura Regeneration", f"{char} - Increased Aura") for char in chars]
+        *[HasAll(f"Character Unlocked: {char}", f"{char} - Aura Regeneration", f"{char} - Increased Aura") for char in world.characters]
     )
 
     artifacts = True_()

@@ -37,7 +37,7 @@ class RWBYWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
-        return self.options.as_dict(
+        data = self.options.as_dict(
             "artifacts_in_pool",
             "artifacts_required_percentage",
             "level_completions_required",
@@ -46,6 +46,8 @@ class RWBYWorld(World):
             "death_link_receive_mode",
             "death_link_send_mode"
         )
+        data["characters"] = self.characters
+        return data
 
     def generate_early(self) -> None:
         # if in ut get options from slot data
@@ -55,15 +57,20 @@ class RWBYWorld(World):
             for key in ["artifacts_in_pool", "artifacts_required_percentage", "level_completions_required", "jnpr_enabled"]:
                 opt = getattr(self.options, key, None)
                 setattr(self.options, key, opt.from_any(slot_data[key]))
+            self.characters = list(slot_data["characters"])
         else:
             chars = ["Ruby", "Weiss", "Blake", "Yang"]
             if self.options.jnpr_enabled:
                 chars += ["Jaune", "Nora", "Pyrrha", "Ren"]
+            chars = [char for char in chars if not char in self.options.characters_disabled]
 
-            max_chars = len([char for char in chars if not char in self.options.characters_disabled])
+            max_chars = min(self.options.max_characters.value, len(chars))
 
             if max_chars < self.options.starting_characters:
                 raise OptionError("Cannot have more starting characters than characters allowed in generation")
+
+            self.random.shuffle(chars)
+            self.characters = chars[:self.options.max_characters]
 
     def custom_ut_sort(self, region_label: str, location_label: str) -> str | int:
         # fix locations that are not quite in the right place in id order
