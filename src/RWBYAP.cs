@@ -209,6 +209,28 @@ public class RWBYAP : BaseUnityPlugin
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.F9) && Input.GetKey(KeyCode.RightShift)) {
+            Singleton_MonoBehaviour<GameManager>.Instance.Mode.AwardExperience(Singleton_MonoBehaviour<ApplicationManager>.Instance.Data.GetLocalPlayerData(), 500);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5)) {
+            Logger.LogInfo("=====================");
+            for (var i = 0; i < 11; i++) {
+                var l = Singleton_MonoBehaviour<ApplicationManager>.Instance.GameplayDatabase.DefaultProgressionCurve.GetPrestigeLevel(i);
+                Logger.LogInfo(l.AwardDescriptionLocalizationKey);
+                Logger.LogInfo("---------------------");
+                foreach (var a in l.PrerequisiteAchievements) {
+                    Logger.LogInfo(a.DescriptionLocalizationKey);
+                    Logger.LogInfo(a.ID);
+                    Logger.LogInfo(a.NameLocalizationKey);
+                    Logger.LogInfo(a.RequiredStatType);
+                    Logger.LogInfo(a.RequiredStatQuantity);
+                    Logger.LogInfo("---------------------");
+                }
+                Logger.LogInfo("=====================");
+            }
+        }
+
         var messages = System.Math.Min(chatQueue.Count, 3);
         for (var i = 0; i < messages; i++)
         {

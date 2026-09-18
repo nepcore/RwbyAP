@@ -4,8 +4,6 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
-using System.Linq;
-
 namespace RwbyAP.Patches;
 
 [HarmonyPatch(typeof(MainMenuController), "Initialize")]
